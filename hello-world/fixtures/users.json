@@ -1,0 +1,98 @@
+[
+  {
+    "id": "123",
+    "name": "landlord 1",
+    "email": "landlord1@gmail.com",
+    "phone": 1255,
+    "sms": 0,
+    "address": ""
+  },
+  {
+    "id": "234",
+    "name": "landlord 2",
+    "email": "landlord2@gmail.com",
+    "phone": 12505,
+    "sms": 0,
+    "address": ""
+  },
+  {
+    "id": "345",
+    "name": "landlord 3",
+    "email": "landlord3@gmail.com",
+    "phone": 12505,
+    "sms": 090877,
+    "address": ""
+  },
+  {
+    "id": "abc",
+    "name": "Maya Angelou",
+    "email": "maya.angelou@gmail.com",
+    "phone": 123455,
+    "sms": 0,
+    "address": ""
+  },
+  {
+    "id": "bcd",
+    "name": "Shel Silverstein",
+    "email": "shel.silverstein@gmail.com",
+    "phone": 234595,
+    "sms": 0,
+    "address": ""
+  },
+  {
+    "id": "cde",
+    "name": "Pablo Neruda",
+    "email": "pablo.neruda@gmail.com",
+    "phone": 0,
+    "sms": 0,
+    "address": ""
+  },
+  {
+    "id": "efg",
+    "name": "E. E. Cummings",
+    "email": "",
+    "phone": 0,
+    "sms": 99999,
+    "address": ""
+  },
+  {
+    "id": "fgh",
+    "name": "Robert Frost",
+    "email": "",
+    "phone": 90,
+    "sms": 99999,
+    "address": ""
+  },
+  {
+    "id": "ghi",
+    "name": "William Wordsworth",
+    "email": "WilliamWordsworth@hotmail.com",
+    "phone": 9999990,
+    "sms": 0,
+    "address": ""
+  },
+  {
+    "id": "hij",
+    "name": "Sara Teasdale",
+    "email": "",
+    "phone": 9712390,
+    "sms": 0,
+    "address": ""
+  },
+  {
+    "id": "ijk",
+    "name": "Mark Strand",
+    "email": "",
+    "phone": 0,
+    "sms": 1230,
+    "address": ""
+  },
+  {
+    "id": "jkl",
+    "name": "Marky Strand",
+    "email": "markstrand@yahoo.com",
+    "phone": 0,
+    "sms": 0,
+    "address": ""
+  }
+]

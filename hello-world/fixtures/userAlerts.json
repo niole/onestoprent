@@ -1,0 +1,65 @@
+[
+{
+  "userId": "abc",
+  "level": "late",
+  "type": "contractsign",
+  "id": "abc",
+  "propertyId": "lksdfn"
+},
+{
+  "userId": "bcd",
+  "level": "ontime",
+  "type": "contractsign",
+  "id": "bcd",
+  "propertyId": "9234"
+},
+{
+  "userId": "cde",
+  "level": "approaching",
+  "type": "contractsign",
+  "id": "cde",
+  "propertyId": "jcnn345"
+},
+{
+  "userId": "efg",
+  "level": "late",
+  "type": "rent",
+  "id": "efg",
+  "propertyId": "jcnn345"
+},
+{
+  "userId": "fgh",
+  "level": "ontime",
+  "type": "rent",
+  "id": "fgh",
+  "propertyId": "9234"
+},
+{
+  "userId": "ghi",
+  "level": "approaching",
+  "type": "rent",
+  "id": "ghi",
+  "propertyId": "9234"
+},
+{
+  "userId": "hij",
+  "level": "late",
+  "type": "contractrenew",
+  "id": "hij",
+  "propertyId": "lksdfn"
+},
+{
+  "userId": "ijk",
+  "level": "ontime",
+  "type": "contractrenew",
+  "id": "ijk",
+  "propertyId": "lksdfn"
+},
+{
+  "userId": "jkl",
+  "level": "approaching",
+  "type": "contractrenew",
+  "id": "jkl",
+  "propertyId": "lksdfn"
+}
+]
