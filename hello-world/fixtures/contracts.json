@@ -1,0 +1,110 @@
+[
+  {
+    "id": "a",
+    "address": "548 Market St, San Francisco, CA 94104, Apt D",
+    "lesseeUserId": "abc",
+    "propertyId": "lksdfn",
+    "signed": false,
+    "signDeadline": "september 1st 2017",
+    "rentDue": 1,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 365
+  },
+  {
+    "id": "b",
+    "address": "915 Kearny St, San Francisco, CA 94133, apt B",
+    "lesseeUserId": "bcd",
+    "propertyId": "9234",
+    "signed": true,
+    "signDeadline": "september 1st 2017",
+    "rentDue": 15,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 182
+  },
+  {
+    "id": "c",
+    "address": "600 Montgomery St, San Francisco, CA 94111, apt A",
+    "lesseeUserId": "cde",
+    "propertyId": "jcnn345",
+    "signed": false,
+    "signDeadline": "september 1st 2017",
+    "rentDue": 15,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 182
+  },
+  {
+    "id": "d",
+    "address": "600 Montgomery St, San Francisco, CA 94111, apt A",
+    "lesseeUserId": "efg",
+    "propertyId": "jcnn345",
+    "signed": true,
+    "signDeadline": "september 1st 2017",
+    "rentDue": 15,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 182
+  },
+  {
+    "id": "d",
+    "address": "915 Kearny St, San Francisco, CA 94133, apt A",
+    "lesseeUserId": "fgh",
+    "propertyId": "9234",
+    "signed": true,
+    "signDeadline": "may 1st 2017",
+    "rentDue": 1,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 365
+  },
+  {
+    "id": "e",
+    "address": "915 Kearny St, San Francisco, CA 94133, apt C",
+    "lesseeUserId": "ghi",
+    "propertyId": "9234",
+    "signed": true,
+    "signDeadline": "may 1st 2017",
+    "rentDue": 1,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 365
+  },
+  {
+    "id": "f",
+    "address": "548 Market St, San Francisco, CA 94104, Apt C",
+    "lesseeUserId": "hij",
+    "propertyId": "lksdfn",
+    "signed": true,
+    "signDeadline": "may 1st 2017",
+    "rentDue": 1,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 365
+  },
+  {
+    "id": "g",
+    "address": "548 Market St, San Francisco, CA 94104, Apt K",
+    "lesseeUserId": "ijk",
+    "propertyId": "lksdfn",
+    "signed": true,
+    "signDeadline": "june 15th 2017",
+    "rentDue": 15,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 365
+  },
+  {
+    "id": "h",
+    "address": "548 Market St, San Francisco, CA 94104, Apt L",
+    "lesseeUserId": "jkl",
+    "propertyId": "lksdfn",
+    "signed": true,
+    "signDeadline": "Semptember 3rd 2017",
+    "rentDue": 3,
+    "securityDeposit": 1000,
+    "rent": 1000,
+    "duration": 30
+  }
+]

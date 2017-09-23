@@ -18,53 +18,73 @@ consumes:
 produces:
   - application/json
 paths:
-  /alerts/all:
+  /contract/find:
     x-swagger-router-controller: hello_world
     get:
-      description: Returns alerts for user specified in body, formatted as specified
-      operationId: allAlerts
+      description: Returns contract for specific user
+      operationId: findUsersContract
       parameters:
         - name: userId
           in: query
-          description: id of user
+          description: id of renter user
           required: true
           type: string
       responses:
         "200":
-          description: Success
+          description: OK
           schema:
             $ref: "#/definitions/allAlertsResponse"
+
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /hello:
-    # binds a127 app logic to a route
+
+  /alerts/renter:
     x-swagger-router-controller: hello_world
     get:
-      description: Returns 'Hello' to the caller
-      # used as the method name of the controller
-      operationId: hello
+      description: Returns alerts for user specified in body, formatted as specified
+      operationId: alertsForRenter
       parameters:
-        - name: name
+        - name: renterUserId
           in: query
-          description: The name of the person to whom to say hello
-          required: false
+          description: id of renter user
+          required: true
           type: string
       responses:
         "200":
-          description: Success
+          description: OK
           schema:
-            # a pointer to a definition
-            $ref: "#/definitions/HelloWorldResponse"
-        # responses may fall through to errors
+            $ref: "#/definitions/allAlertsResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /alerts/landlord:
+    x-swagger-router-controller: hello_world
+    get:
+      description: Returns alerts for user specified in body, formatted as specified
+      operationId: alertsForLandlord
+      parameters:
+        - name: landlordUserId
+          in: query
+          description: id of land lord user
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/allAlertsResponse"
+
         default:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
-# complex objects have schema definitions
 definitions:
   allAlertsResponse:
     required:

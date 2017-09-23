@@ -1,42 +1,49 @@
 const util = require('util');
 const userAlerts = require('../../fixtures/userAlerts.json');
+const messages = require('../../fixtures/messages.json');
+const properties = require('../../fixtures/properties.json');
+const landlords = require('../../fixtures/landlords.json');
+const contracts = require('../../fixtures/contracts.json');
 
-
-/*
- Once you 'require' a module you can reference the things that it exports.  These are defined in module.exports.
-
- For a controller in a127 (which this is) you should export the functions referenced in your Swagger document by name.
-
- Either:
-  - The HTTP Verb of the corresponding operation (get, put, post, delete, etc)
-  - Or the operationId associated with the operation in your Swagger document
-
-  In the starter/skeleton project the 'get' operation on the '/hello' path has an operationId named 'hello'.  Here,
-  we specify that in the exports of this module that 'hello' maps to the function named 'hello'
+/**
+ * TODO
+ * get alerts for landlord
+ * get alerts for user
+ * get user's contract
  */
 
-function allAlerts(req, res) {
-  var id = req.swagger.params.userId.value;
-  res.json(userAlerts.filter(alert => alert.userId === id));
+function findUsersContract(req, res) {
+  const {
+    userId,
+  }  = req.swagger.params;
+
+  res.json(contracts.filter(({ lesseeUserId }) => lesseeUserId === userId.value));
 }
 
-/*
-  Functions in a127 controllers used for operations should take two parameters:
+function alertsForRenter(req, res) {
+  const {
+    renterUserId,
+  }  = req.swagger.params;
 
-  Param 1: a handle to the request object
-  Param 2: a handle to the response object
- */
-function hello(req, res) {
-  // variables defined in the Swagger document can be referenced using req.swagger.params.{parameter_name}
-  var name = req.swagger.params.name.value || 'stranger';
-  var hello = util.format('Hello, %s!', name);
+  res.json(userAlerts.filter(({ userId }) => userId === renterUserId.value));
+}
 
-  // this sends back a JSON response which is a single string
-  res.json(hello);
+function alertsForLandlord(req, res) {
+  const {
+    landlordUserId,
+  }  = req.swagger.params;
+
+  const foundLandlord = landlords.find(ll => ll.userId === landlordUserId.value);
+  if (foundLandlord) {
+    const managedProperties = properties.filter(p => p.landlordId === foundLandlord.id);
+    const alertsForLandlord = userAlerts.filter(alert => !!managedProperties.find(p => p.id === alert.propertyId));
+    res.json(alertsForLandlord);
+  }
+  res.json([]);
 }
 
 module.exports = {
-  hello,
-  allAlerts
+  findUsersContract,
+  alertsForLandlord,
+  alertsForRenter,
 };
-
