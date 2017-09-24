@@ -5,13 +5,6 @@ const properties = require('../../fixtures/properties.json');
 const landlords = require('../../fixtures/landlords.json');
 const contracts = require('../../fixtures/contracts.json');
 
-/**
- * TODO
- * get alerts for landlord
- * get alerts for user
- * get user's contract
- */
-
 function getMessages(toUserId) {
   return messages.filter(message => message.toUserId === toUserId);
 }
@@ -60,14 +53,6 @@ function alertsForRenter(req, res) {
   res.json(getAlertsForRender(renterUserId.value));
 }
 
-function countAlertsForRenter(req, res) {
-  const {
-    renterUserId,
-  }  = req.swagger.params;
-
-  res.json(getAlertsForRender(renterUserId.value).length);
-}
-
 function alertsForLandlord(req, res) {
   const {
     landlordUserId,
@@ -76,19 +61,9 @@ function alertsForLandlord(req, res) {
   res.json(getAlertsForLandlord(landlordUserId.value));
 }
 
-function countAlertsForLandlord(req, res) {
-  const {
-    landlordUserId,
-  }  = req.swagger.params;
-
-  res.json(getAlertsForLandlord(landlordUserId.value).length);
-}
-
 module.exports = {
   findUsersContract,
   alertsForLandlord,
   alertsForRenter,
-  countAlertsForRenter,
-  countAlertsForLandlord,
   messagesToUser,
 };
