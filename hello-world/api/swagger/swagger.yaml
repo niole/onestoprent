@@ -18,6 +18,27 @@ consumes:
 produces:
   - application/json
 paths:
+  /messages/to:
+    x-swagger-router-controller: hello_world
+    get:
+      description: returns messages to user specified
+      operationId: messagesToUser
+      parameters:
+        - name: userId
+          in: query
+          description: id of user whose messages we want to find
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/allAlertsResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /contract/find:
     x-swagger-router-controller: hello_world
     get:
@@ -40,6 +61,27 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /alerts/renter/count:
+    x-swagger-router-controller: hello_world
+    get:
+      description: Returns alerts count for user specified in body, formatted as specified
+      operationId: countAlertsForRenter
+      parameters:
+        - name: renterUserId
+          in: query
+          description: id of renter user
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/allAlertsResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /alerts/renter:
     x-swagger-router-controller: hello_world
     get:
@@ -62,6 +104,27 @@ paths:
           schema:
             $ref: "#/definitions/ErrorResponse"
 
+  /alerts/landlord/count:
+    x-swagger-router-controller: hello_world
+    get:
+      description: Returns count of alerts for user specified in body, formatted as specified
+      operationId: countAlertsForLandlord
+      parameters:
+        - name: landlordUserId
+          in: query
+          description: id of land lord user
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/allAlertsResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /alerts/landlord:
     x-swagger-router-controller: hello_world
     get:

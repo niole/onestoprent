@@ -2,63 +2,63 @@
 {
   "userId": "abc",
   "level": "late",
-  "type": "contractsign",
+  "alertType": "contractsign",
   "id": "abc",
   "propertyId": "lksdfn"
 },
 {
   "userId": "bcd",
   "level": "ontime",
-  "type": "contractsign",
+  "alertType": "contractsign",
   "id": "bcd",
   "propertyId": "9234"
 },
 {
   "userId": "cde",
   "level": "approaching",
-  "type": "contractsign",
+  "alertType": "contractsign",
   "id": "cde",
   "propertyId": "jcnn345"
 },
 {
   "userId": "efg",
   "level": "late",
-  "type": "rent",
+  "alertType": "rent",
   "id": "efg",
   "propertyId": "jcnn345"
 },
 {
   "userId": "fgh",
   "level": "ontime",
-  "type": "rent",
+  "alertType": "rent",
   "id": "fgh",
   "propertyId": "9234"
 },
 {
   "userId": "ghi",
   "level": "approaching",
-  "type": "rent",
+  "alertType": "rent",
   "id": "ghi",
   "propertyId": "9234"
 },
 {
   "userId": "hij",
   "level": "late",
-  "type": "contractrenew",
+  "alertType": "contractrenew",
   "id": "hij",
   "propertyId": "lksdfn"
 },
 {
   "userId": "ijk",
   "level": "ontime",
-  "type": "contractrenew",
+  "alertType": "contractrenew",
   "id": "ijk",
   "propertyId": "lksdfn"
 },
 {
   "userId": "jkl",
   "level": "approaching",
-  "type": "contractrenew",
+  "alertType": "contractrenew",
   "id": "jkl",
   "propertyId": "lksdfn"
 }

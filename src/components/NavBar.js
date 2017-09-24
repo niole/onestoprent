@@ -1,31 +1,53 @@
 import Vue from 'vue';
 import AlertIcon from './AlertIcon';
 import QuickView from './QuickView';
+import {
+  getAlertsForRenter,
+  getAlertsForLandlord,
+} from '../queryUtil';
 
 const NavBar = Vue.component('nav-bar', {
     props: [
-      'messages',
-      'alerts'
+      'isRenter',
+      'userId',
     ],
+    mounted: function() {
+      if (!this.isRenter) {
+        getAlertsForLandlord(this.userId)
+          .then(({ data }) => {
+            this.alerts = data;
+          })
+          .catch(error => console.error(error));
+      } else {
+        getAlertsForRenter(this.userId)
+          .then(({ data }) => {
+            this.alerts = data;
+          })
+          .catch(error => console.error(error));
+      }
+    },
     data: function() {
       return {
+        alerts: [],
         alertTypes: [
           "rent",
           "contractsign",
           "contractrenew",
+          "message"
         ],
-        openAlert: "",
+        openAlert: ""
       };
     },
     computed: {
       alertMap: function() {
         return this.alerts.reduce((map, alert) => {
-          map[alert.type] += 1;
+          map[alert.alertType] += 1;
           return map;
         }, {
           rent: 0,
           contractsign: 0,
           contractrenew: 0,
+          message: 0,
         });
       },
     },
@@ -35,6 +57,7 @@ const NavBar = Vue.component('nav-bar', {
         if (alertToToggle === this.openAlert) {
           this.openAlert = "";
         } else {
+          // TODO get data for quick view
           this.openAlert = alertToToggle;
         }
       },
@@ -53,17 +76,11 @@ const NavBar = Vue.component('nav-bar', {
             :count="alertMap[alertType]"
             :label="alertType"
             :type="alertType"
+            slot="trigger"
           />
-        </quick-view>
-        <quick-view
-          :open="isQuickViewOpen('message')"
-        >
-          <alert-icon
-            :onClick="handleAlertClick"
-            :count="messages.length"
-            :label="'message'"
-            :type="'message'"
-          />
+          <div slot="content">
+            view
+          </div>
         </quick-view>
       </header>
     `

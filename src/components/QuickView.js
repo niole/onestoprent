@@ -6,12 +6,12 @@ const QuickView = Vue.component('quick-view', {
   ],
   template: `
     <div class="quick-view">
-      <slot></slot>
+      <slot name="trigger"></slot>
       <div
         v-if="open"
         class="view"
       >
-        view
+        <slot name="content"></slot>
       </div>
     </div>
   `

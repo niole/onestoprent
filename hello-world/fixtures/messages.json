@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "toUserId": "123",
+    "fromUserId": "abc",
+    "messageType": "repair",
+    "alertType": "message",
+    "content": "my bathtub's broken, who should I call for help?"
+  },
+  {
+    "toUserId": "123",
+    "fromUserId": "abc",
+    "messageType": "question",
+    "alertType": "message",
+    "content": "what's my montly rent again?"
+  }
+]
