@@ -1,3 +1,5 @@
+@import 'util'
+@import 'menu'
 @import 'quickview'
 @import 'navalerts'
 @import 'font'
@@ -15,8 +17,7 @@ button
   background: transparent
 
   &:hover
-    transition: font-weight .5s ease-in-out
-    font-weight: bold
+    @extend .light-engage-trans
 
   &:visited, &:active, &:focus
     outline: none

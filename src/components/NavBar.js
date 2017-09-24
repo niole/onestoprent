@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import AlertIcon from './AlertIcon';
 import QuickView from './QuickView';
+import MenuItem from './MenuItem';
 import {
   getAlertsForRenter,
   getAlertsForLandlord,
@@ -41,13 +42,13 @@ const NavBar = Vue.component('nav-bar', {
     computed: {
       alertMap: function() {
         return this.alerts.reduce((map, alert) => {
-          map[alert.alertType] += 1;
+          map[alert.alertType].push(alert);
           return map;
         }, {
-          rent: 0,
-          contractsign: 0,
-          contractrenew: 0,
-          message: 0,
+          rent: [],
+          contractsign: [],
+          contractrenew: [],
+          message: [],
         });
       },
     },
@@ -73,13 +74,20 @@ const NavBar = Vue.component('nav-bar', {
         >
           <alert-icon
             :onClick="handleAlertClick"
-            :count="alertMap[alertType]"
+            :count="alertMap[alertType].length"
             :label="alertType"
             :type="alertType"
             slot="trigger"
           />
           <div slot="content">
-            view
+            <menu-item
+              v-for="alert in alertMap[alertType]"
+            >
+              {{ alert.alertType }}
+              <span v-if="alert.level">
+                {{ alert.level }}
+              </span>
+            </menu-item>
           </div>
         </quick-view>
       </header>
