@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import AlertIcon from './AlertIcon';
+import QuickView from './QuickView';
 
 const NavBar = Vue.component('nav-bar', {
     props: [
@@ -13,6 +14,7 @@ const NavBar = Vue.component('nav-bar', {
           "contractsign",
           "contractrenew",
         ],
+        openAlert: "",
       };
     },
     computed: {
@@ -29,24 +31,40 @@ const NavBar = Vue.component('nav-bar', {
     },
     methods: {
       handleAlertClick: function(event) {
-        console.log(event.target.value);
-      }
+        const alertToToggle = event.target.value;
+        if (alertToToggle === this.openAlert) {
+          this.openAlert = "";
+        } else {
+          this.openAlert = alertToToggle;
+        }
+      },
+      isQuickViewOpen: function(alertType) {
+        return alertType === this.openAlert;
+      },
     },
     template: `
       <header>
-        <alert-icon
+        <quick-view
           v-for="alertType in alertTypes"
-          :onClick="handleAlertClick"
-          :count="alertMap[alertType]"
-          :label="alertType"
-          :type="alertType"
-        />
-        <alert-icon
-          :onClick="handleAlertClick"
-          :count="messages.length"
-          :label="'message'"
-          :type="'message'"
-        />
+          :open="isQuickViewOpen(alertType)"
+        >
+          <alert-icon
+            :onClick="handleAlertClick"
+            :count="alertMap[alertType]"
+            :label="alertType"
+            :type="alertType"
+          />
+        </quick-view>
+        <quick-view
+          :open="isQuickViewOpen('message')"
+        >
+          <alert-icon
+            :onClick="handleAlertClick"
+            :count="messages.length"
+            :label="'message'"
+            :type="'message'"
+          />
+        </quick-view>
       </header>
     `
 });

@@ -1,8 +1,31 @@
+@import 'quickview'
+@import 'navalerts'
 @import 'font'
 
 body
-  color: green
   font-family: "Open Sans"
+  background: whitesmoke
+  margin: 0px
 
 button
-  background: blue
+  font-family: "Open Sans"
+  padding: .5em 1em
+  border-radius: 2px
+  border: none
+  background: transparent
+
+  &:hover
+    transition: font-weight .5s ease-in-out
+    font-weight: bold
+
+  &:visited, &:active, &:focus
+    outline: none
+    border: none
+
+header
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .1)
+  padding: 10px 0px
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background: white
