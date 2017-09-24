@@ -7,6 +7,6 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   template: `
-    <main-page />
+  <main-page />
   `
-})
+});
