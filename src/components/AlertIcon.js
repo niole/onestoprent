@@ -2,6 +2,7 @@ import Vue from 'vue';
 
 const AlertIcon = Vue.component('alert-icon', {
     props: [
+      'focused',
       'onClick',
       'count',
       'label',
@@ -11,9 +12,15 @@ const AlertIcon = Vue.component('alert-icon', {
       alertButtonClass: function() {
         return `${this.type}-alert`;
       },
+      iconClass: function() {
+        if (this.focused) {
+          return 'alert-icon selected';
+        }
+        return 'alert-icon';
+      },
     },
     template: `
-      <div class="alert-icon">
+      <div :class="iconClass">
         <div class="count">
           {{ count }}
         </div>

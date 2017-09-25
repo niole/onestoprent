@@ -1,12 +1,18 @@
 import Vue from 'vue';
 import AlertIcon from './AlertIcon';
 import QuickView from './QuickView';
-import MenuItem from './MenuItem';
+import AlertMenuItem from './AlertMenuItem';
 import {
   getAlertsForRenter,
   getAlertsForLandlord,
   getAlertsForUser,
 } from '../queryUtil';
+
+const MAIN_PAGE_ID = "main";
+const RENT_PAGE_ID = "rent";
+const CONTRACT_RENEW_PAGE_ID = "contractrenew";
+const CONTRACT_SIGN_PAGE_ID = "contractsign";
+const MESSAGEPAGE_ID = "message";
 
 const NavBar = Vue.component('nav-bar', {
     props: [
@@ -24,12 +30,13 @@ const NavBar = Vue.component('nav-bar', {
       return {
         alerts: [],
         alertTypes: [
-          "rent",
-          "contractsign",
-          "contractrenew",
-          "message"
+          RENT_PAGE_ID,
+          CONTRACT_RENEW_PAGE_ID,
+          CONTRACT_SIGN_PAGE_ID,
+          MESSAGEPAGE_ID,
         ],
-        openAlert: ""
+        openAlert: "",
+        selectedPage: MAIN_PAGE_ID,
       };
     },
     computed: {
@@ -58,6 +65,11 @@ const NavBar = Vue.component('nav-bar', {
       isQuickViewOpen: function(alertType) {
         return alertType === this.openAlert;
       },
+      onQuickAlertClick: function(id, pageId) {
+        console.log(id);
+        this.openAlert = "";
+        this.selectedPage = pageId;
+      }
     },
     template: `
       <header>
@@ -70,23 +82,16 @@ const NavBar = Vue.component('nav-bar', {
             :count="alertMap[alertType].length"
             :label="alertType"
             :type="alertType"
+            :focused="selectedPage === alertType"
             slot="trigger"
           />
           <div slot="content">
-            <menu-item
+            <alert-menu-item
               v-for="alert in alertMap[alertType]"
-            >
-              <span v-if="isRenter">
-                {{ alert.landlordName }}
-              </span>
-              <span v-else>
-                {{ alert.renterName }}
-              </span>
-              {{ alert.alertType }}
-              <span v-if="alert.level">
-                {{ alert.level }}
-              </span>
-            </menu-item>
+              :onClick="onQuickAlertClick"
+              :isRenter="isRenter"
+              :alert="alert"
+            />
           </div>
         </quick-view>
       </header>

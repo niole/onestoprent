@@ -1,5 +1,6 @@
 [
   {
+    "id": "a",
     "renterUserId": "abc",
     "propertyId": "lksdfn",
     "landlordUserId": "123",
@@ -9,6 +10,7 @@
     "read": false
   },
   {
+    "id": "b",
     "renterUserId": "abc",
     "propertyId": "lksdfn",
     "landlordUserId": "123",
