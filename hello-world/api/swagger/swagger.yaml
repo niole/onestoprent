@@ -104,6 +104,27 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+  /alerts/all:
+    x-swagger-router-controller: hello_world
+    get:
+      description: Returns alerts for user specified in body, formatted as specified
+      operationId: alertsForUser
+      parameters:
+        - name: userId
+          in: query
+          description: id of land lord user
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/allAlertsResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /swagger:
     x-swagger-pipe: swagger_raw
 definitions:

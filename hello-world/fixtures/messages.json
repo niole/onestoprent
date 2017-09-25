@@ -1,16 +1,20 @@
 [
   {
-    "toUserId": "123",
-    "fromUserId": "abc",
+    "renterUserId": "abc",
+    "propertyId": "lksdfn",
+    "landlordUserId": "123",
     "messageType": "repair",
     "alertType": "message",
-    "content": "my bathtub's broken, who should I call for help?"
+    "content": "my bathtub's broken, who should I call for help?",
+    "read": false
   },
   {
-    "toUserId": "123",
-    "fromUserId": "abc",
+    "renterUserId": "abc",
+    "propertyId": "lksdfn",
+    "landlordUserId": "123",
     "messageType": "question",
     "alertType": "message",
-    "content": "what's my montly rent again?"
+    "content": "what's my montly rent again?",
+    "read": false
   }
 ]

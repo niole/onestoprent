@@ -2,6 +2,11 @@ import axios from 'axios';
 
 const apiHost = "http://127.0.0.1:10010";
 
+export function getAlertsForUser(userId) {
+  const url = `${apiHost}/alerts/all?userId=${userId}`;
+  return axios(url);
+}
+
 export function getAlertsForLandlord(userId) {
   const url = `${apiHost}/alerts/landlord?landlordUserId=${userId}`;
   return axios(url);

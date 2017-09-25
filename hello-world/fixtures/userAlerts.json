@@ -1,65 +1,82 @@
 [
 {
-  "userId": "abc",
+  "renterUserId": "abc",
+  "landlordUserId": "123",
   "level": "late",
   "alertType": "contractsign",
   "id": "abc",
-  "propertyId": "lksdfn"
+  "propertyId": "lksdfn",
+  "read": false
 },
 {
-  "userId": "bcd",
+  "renterUserId": "bcd",
+  "landlordUserId": "234",
   "level": "ontime",
   "alertType": "contractsign",
   "id": "bcd",
-  "propertyId": "9234"
+  "propertyId": "9234",
+  "read": false
 },
 {
-  "userId": "cde",
+  "renterUserId": "cde",
+  "landlordUserId": "345",
   "level": "approaching",
   "alertType": "contractsign",
   "id": "cde",
-  "propertyId": "jcnn345"
+  "propertyId": "jcnn345",
+  "read": false
 },
 {
-  "userId": "efg",
+  "renterUserId": "efg",
+  "landlordUserId": "345",
   "level": "late",
   "alertType": "rent",
   "id": "efg",
-  "propertyId": "jcnn345"
+  "propertyId": "jcnn345",
+  "read": false
 },
 {
-  "userId": "fgh",
+  "renterUserId": "fgh",
+  "landlordUserId": "234",
   "level": "ontime",
   "alertType": "rent",
   "id": "fgh",
-  "propertyId": "9234"
+  "propertyId": "9234",
+  "read": false
 },
 {
-  "userId": "ghi",
+  "renterUserId": "ghi",
   "level": "approaching",
   "alertType": "rent",
   "id": "ghi",
-  "propertyId": "9234"
+  "propertyId": "9234",
+  "read": false
 },
 {
-  "userId": "hij",
+  "renterUserId": "hij",
+  "landlordUserId": "123",
   "level": "late",
   "alertType": "contractrenew",
   "id": "hij",
-  "propertyId": "lksdfn"
+  "propertyId": "lksdfn",
+  "read": false
 },
 {
-  "userId": "ijk",
+  "renterUserId": "ijk",
+  "landlordUserId": "123",
   "level": "ontime",
   "alertType": "contractrenew",
   "id": "ijk",
-  "propertyId": "lksdfn"
+  "propertyId": "lksdfn",
+  "read": false
 },
 {
-  "userId": "jkl",
+  "renterUserId": "jkl",
+  "landlordUserId": "123",
   "level": "approaching",
   "alertType": "contractrenew",
   "id": "jkl",
-  "propertyId": "lksdfn"
+  "propertyId": "lksdfn",
+  "read": false
 }
 ]

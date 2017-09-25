@@ -5,6 +5,7 @@ import MenuItem from './MenuItem';
 import {
   getAlertsForRenter,
   getAlertsForLandlord,
+  getAlertsForUser,
 } from '../queryUtil';
 
 const NavBar = Vue.component('nav-bar', {
@@ -13,19 +14,11 @@ const NavBar = Vue.component('nav-bar', {
       'userId',
     ],
     mounted: function() {
-      if (!this.isRenter) {
-        getAlertsForLandlord(this.userId)
-          .then(({ data }) => {
-            this.alerts = data;
-          })
-          .catch(error => console.error(error));
-      } else {
-        getAlertsForRenter(this.userId)
-          .then(({ data }) => {
-            this.alerts = data;
-          })
-          .catch(error => console.error(error));
-      }
+      getAlertsForUser(this.userId)
+        .then(({ data }) => {
+          this.alerts = data;
+        })
+        .catch(error => console.error(error));
     },
     data: function() {
       return {
@@ -83,6 +76,12 @@ const NavBar = Vue.component('nav-bar', {
             <menu-item
               v-for="alert in alertMap[alertType]"
             >
+              <span v-if="isRenter">
+                {{ alert.landlordName }}
+              </span>
+              <span v-else>
+                {{ alert.renterName }}
+              </span>
               {{ alert.alertType }}
               <span v-if="alert.level">
                 {{ alert.level }}
