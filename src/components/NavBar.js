@@ -66,7 +66,6 @@ const NavBar = Vue.component('nav-bar', {
         return alertType === this.openAlert;
       },
       onQuickAlertClick: function(id, pageId) {
-        console.log(id);
         this.openAlert = "";
         this.selectedPage = pageId;
       }
