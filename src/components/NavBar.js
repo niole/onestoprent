@@ -71,12 +71,7 @@ const NavBar = Vue.component('nav-bar', {
       onQuickAlertClick: function(alert, pageId) {
         this.openAlert = "";
         this.selectedPage = pageId;
-
-        if (this.isRenter) {
-          this.updatePage(pageId, alert.landlordUserId);
-        } else {
-          this.updatePage(pageId, alert.renterUserId);
-        }
+        this.updatePage(pageId, alert);
       }
     },
     template: `

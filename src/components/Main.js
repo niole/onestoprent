@@ -16,13 +16,17 @@ const Main = Vue.component('main-page', {
         isRenter: false,
         userId: "123",
         currentView: MAIN_PAGE_ID,
-        targetUserId: "",
+        renterUserId: "",
+        landlordUserId: "",
+        alertLevel: "",
       };
     },
     methods: {
-      updatePage: function(pageId, targetUserId) {
+      updatePage: function(pageId, alert) {
         this.currentView = pageId;
-        this.targetUserId = targetUserId;
+        this.renterUserId = alert.renterUserId;
+        this.landlordUserId = alert.landlordUserId;
+        this.alertLevel = alert.level;
       }
     },
     template: `
@@ -36,7 +40,9 @@ const Main = Vue.component('main-page', {
           <single-user-action-view
             :viewType="currentView"
             :currentUserIsRenter="isRenter"
-            :userId="targetUserId"
+            :landlordUserId="landlordUserId"
+            :renterUserId="renterUserId"
+            :alertLevel="alertLevel"
           />
         </div>
       </div>

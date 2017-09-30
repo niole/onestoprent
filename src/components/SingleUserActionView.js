@@ -3,6 +3,7 @@ import {
   getUserData,
   getLesseeContract,
 } from '../queryUtil';
+import SingleUserActionRenderer from './SingleUserActionRenderer';
 
 const SingleUserActionView = Vue.component('single-user-action-view', {
   props: {
@@ -12,25 +13,31 @@ const SingleUserActionView = Vue.component('single-user-action-view', {
     currentUserIsRenter: {
       type: Boolean,
     },
-    userId: {
+    landlordUserId: {
+      type: String,
+    },
+    renterUserId: {
+      type: String,
+    },
+    alertLevel: {
       type: String,
     },
   },
   data: function() {
     return {
-      user: {},
+      renter: {},
       contract: {},
     };
   },
   watch: {
-    userId: function(id) {
-      getUserData(this.userId)
+    renterUserId: function(id) {
+      getUserData(this.renterUserId)
         .then(({ data }) => {
-          this.user = data;
+          this.renter = data;
         })
         .catch(error => console.error(error));
 
-      getLesseeContract(this.userId)
+      getLesseeContract(this.renterUserId)
         .then(({ data }) => {
           this.contract = data;
         })
@@ -39,11 +46,15 @@ const SingleUserActionView = Vue.component('single-user-action-view', {
   },
   template: `
     <div>
-      {{ userId }}
-      {{ currentUserIsRenter }}
-      {{ viewType }}
-      {{ user.name }}
-      {{ contract.address }}
+      <single-user-action-renderer
+        :action="viewType"
+        :actionLevel="alertLevel"
+        :contract="contract"
+        :currentUserIsRenter="currentUserIsRenter"
+        :landlordUserId="landlordUserId"
+        :renterUserId="renterUserId"
+        :renterData="renter"
+      />
     </div>
   `
 });
