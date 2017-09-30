@@ -18,6 +18,48 @@ consumes:
 produces:
   - application/json
 paths:
+  /contract/find/lessee:
+    x-swagger-router-controller: hello_world
+    get:
+      description: returns contract for lessor and lessee
+      operationId: handleGetLesseeContract
+      parameters:
+        - name: lesseeUserId
+          in: query
+          description: user id of the lessee
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/userReponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /user:
+    x-swagger-router-controller: hello_world
+    get:
+      description: returns specified user
+      operationId: getUser
+      parameters:
+        - name: userId
+          in: query
+          description: id of user whose messages we want to find
+          required: true
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/userReponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /messages/to:
     x-swagger-router-controller: hello_world
     get:
@@ -128,6 +170,9 @@ paths:
   /swagger:
     x-swagger-pipe: swagger_raw
 definitions:
+  userReponse:
+    type: object
+
   allAlertsResponse:
     required:
       - message

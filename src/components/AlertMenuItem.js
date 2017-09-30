@@ -13,7 +13,7 @@ const AlertMenuItem = Vue.component('alert-menu-item', {
   ],
   methods: {
     handleButtonClick: function() {
-      this.onClick(this.alert.id, this.alert.alertType);
+      this.onClick(this.alert, this.alert.alertType);
     },
     getLevelClass: function(alertLevel) {
       switch (alertLevel) {

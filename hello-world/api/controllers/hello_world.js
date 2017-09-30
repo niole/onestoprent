@@ -6,9 +6,41 @@ const properties = require('../../fixtures/properties.json');
 const landlords = require('../../fixtures/landlords.json');
 const contracts = require('../../fixtures/contracts.json');
 
+function findUser(userId) {
+  return users.find(u => u.id === userId);
+}
+
+function getUser(req, res) {
+  const {
+    userId,
+  }  = req.swagger.params;
+  const user = findUser(userId.value) || {};
+  res.json(user);
+}
+
+function getContract(lesseeUserId) {
+   const contract = contracts.find( c =>
+      lesseeUserId === c.lesseeUserId && c.active
+   );
+
+   if (contract) {
+     return contract;
+   }
+
+   return {};
+}
+
 function getMessages(userId) {
   return messages.filter(message =>
     message.renterUserId === userId || message.landlordUserId === userId);
+}
+
+function handleGetLesseeContract(req, res) {
+  const {
+    lesseeUserId,
+  }  = req.swagger.params;
+
+  res.json(getContract(lesseeUserId.value));
 }
 
 function messagesToUser(req, res) {
@@ -106,4 +138,6 @@ module.exports = {
   alertsForRenter,
   messagesToUser,
   alertsForUser,
+  getUser,
+  handleGetLesseeContract,
 };

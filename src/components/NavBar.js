@@ -7,17 +7,20 @@ import {
   getAlertsForLandlord,
   getAlertsForUser,
 } from '../queryUtil';
+import {
+  MAIN_PAGE_ID,
+  RENT_PAGE_ID,
+  CONTRACT_RENEW_PAGE_ID,
+  CONTRACT_SIGN_PAGE_ID,
+  MESSAGEPAGE_ID,
+} from '../constants';
 
-const MAIN_PAGE_ID = "main";
-const RENT_PAGE_ID = "rent";
-const CONTRACT_RENEW_PAGE_ID = "contractrenew";
-const CONTRACT_SIGN_PAGE_ID = "contractsign";
-const MESSAGEPAGE_ID = "message";
 
 const NavBar = Vue.component('nav-bar', {
     props: [
       'isRenter',
       'userId',
+      'updatePage',
     ],
     mounted: function() {
       getAlertsForUser(this.userId)
@@ -65,9 +68,15 @@ const NavBar = Vue.component('nav-bar', {
       isQuickViewOpen: function(alertType) {
         return alertType === this.openAlert;
       },
-      onQuickAlertClick: function(id, pageId) {
+      onQuickAlertClick: function(alert, pageId) {
         this.openAlert = "";
         this.selectedPage = pageId;
+
+        if (this.isRenter) {
+          this.updatePage(pageId, alert.landlordUserId);
+        } else {
+          this.updatePage(pageId, alert.renterUserId);
+        }
       }
     },
     template: `

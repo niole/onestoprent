@@ -2,6 +2,16 @@ import axios from 'axios';
 
 const apiHost = "http://127.0.0.1:10010";
 
+export function getLesseeContract(lesseeUserId) {
+  const url = `${apiHost}/contract/find/lessee?lesseeUserId=${lesseeUserId}`;
+  return axios(url);
+}
+
+export function getUserData(userId) {
+  const url = `${apiHost}/user?userId=${userId}`;
+  return axios(url);
+}
+
 export function getAlertsForUser(userId) {
   const url = `${apiHost}/alerts/all?userId=${userId}`;
   return axios(url);
