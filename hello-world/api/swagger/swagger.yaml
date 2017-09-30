@@ -60,7 +60,7 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
-  /messages/to:
+  /messages:
     x-swagger-router-controller: hello_world
     get:
       description: returns messages to user specified

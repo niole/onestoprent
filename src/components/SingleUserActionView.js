@@ -29,6 +29,19 @@ const SingleUserActionView = Vue.component('single-user-action-view', {
       contract: {},
     };
   },
+  mounted: function() {
+    getUserData(this.renterUserId)
+      .then(({ data }) => {
+        this.renter = data;
+      })
+      .catch(error => console.error(error));
+
+    getLesseeContract(this.renterUserId)
+      .then(({ data }) => {
+        this.contract = data;
+      })
+      .catch(error => console.error(error));
+  },
   watch: {
     renterUserId: function(id) {
       getUserData(this.renterUserId)

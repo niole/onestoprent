@@ -28,6 +28,6 @@ export function getAlertsForRenter(userId) {
 }
 
 export function getMessages(userId) {
-  const url = `${apiHost}/messages/to?userId=${userId}`;
+  const url = `${apiHost}/messages?userId=${userId}`;
   return axios(url);
 }
