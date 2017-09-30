@@ -3,7 +3,6 @@ import HighlevelContract from './HighlevelContract';
 
 const USER_ACTIONS = [
   "rent",
-  "message",
   "contractsign",
   "contractrenew",
 ];
@@ -48,16 +47,66 @@ const SingleUserActionRenderer = Vue.component('single-user-action-renderer', {
   },
   components: {
     rent: {
+      props: [
+        'renterData',
+        'landlordUserId',
+        'renterUserId',
+        'currentUserIsRenter',
+        'contract',
+        'actionLevel',
+      ],
+      computed: {
+        mainMessage: function() {
+          if (this.currentUserIsRenter) {
+            // is renter
+            switch(this.actionLevel) {
+              case "ontime":
+                return "Your rent is due today.";
+              case "approaching":
+                return `Your rent is due on the ${this.contract.rentDue}.`;
+              case "late":
+                return `You missed your rent deadline. Your rent was due on the ${this.contract.rentDue}.`;
+              default:
+                console.warn("This user action doesn't exist");
+                return "";
+            }
+          } else {
+            // is landlord
+            switch(this.actionLevel) {
+              case "ontime":
+                return `${this.renterData.name} just submitted a rent payment.`;
+              case "approaching":
+                return `${this.renterData.name}'s rent is due on the ${this.contract.rentDue}.`;
+              case "late":
+                return `${this.renterData.name}'s rent is late.`;
+              default:
+                console.warn("This user action doesn't exist");
+                return "";
+            }
+          }
+        },
+        lesseeName: function() {
+          if (this.currentUserIsRenter) {
+            return "Your";
+          }
+          return `${this.renterData.name}'s`;
+        }
+      },
       template:`
         <div>
-          PAY RENT
-        </div>
-      `
-    },
-    message: {
-      template: `
-        <div>
-          ANSWER MESSAGE
+          <h1>
+            Rent
+          </h1>
+          {{ mainMessage }}
+          <highlevel-contract
+            :contract="contract"
+            :lesseeName="lesseeName"
+            :active="false"
+            :signatureDeadline="false"
+            :signed="false"
+            :securityDeposit="false"
+            :duration="false"
+          />
         </div>
       `
     },
@@ -89,7 +138,7 @@ const SingleUserActionRenderer = Vue.component('single-user-action-renderer', {
             // is landlord
             switch(this.actionLevel) {
               case "ontime":
-                return `${this.renterData.name} signed their contract.`;
+                return `${this.renterData.name}'s contract has been signed.`;
               case "approaching":
                 return `${this.renterData.name}'s contract sign deadline is approaching.`;
               case "late":
@@ -107,7 +156,6 @@ const SingleUserActionRenderer = Vue.component('single-user-action-renderer', {
           return `${this.renterData.name}'s`;
         }
       },
-
       template: `
         <div>
           <h1>

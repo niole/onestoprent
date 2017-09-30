@@ -14,7 +14,7 @@ const Main = Vue.component('main-page', {
     data: function() {
       return {
         isRenter: false,
-        userId: "123",
+        userId: "234",
         currentView: MAIN_PAGE_ID,
         renterUserId: "",
         landlordUserId: "",
