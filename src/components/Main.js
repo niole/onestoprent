@@ -2,6 +2,7 @@ import Vue from 'vue';
 import NavBar from './NavBar';
 import SingleUserActionView from './SingleUserActionView';
 import MessagesView from './MessagesView';
+import store from '../store';
 import {
   MAIN_PAGE_ID,
   RENT_PAGE_ID,
@@ -13,26 +14,17 @@ import {
 
 const Main = Vue.component('main-page', {
     data: function() {
-      return {
-        isRenter: false,
-        userId: "123",
-        currentView: MAIN_PAGE_ID,
-        renterUserId: "",
-        landlordUserId: "",
-        alert: {
-          level: "",
-        },
-      };
+      return store;
     },
     methods: {
-      updatePage: function(pageId, alert) {
+      updatePage: function(pageId, alert = this.alert) {
         // TODO on select, kill alert
 
         this.currentView = pageId;
         this.renterUserId = alert.renterUserId;
         this.landlordUserId = alert.landlordUserId;
         this.alert = alert;
-      }
+      },
     },
     computed: {
       showSingleUserActionView: function() {
