@@ -1,6 +1,9 @@
 import Vue from 'vue';
+import Contract from './Contract';
 import HighlevelContract from './HighlevelContract';
 import MessagesView from './MessagesView';
+import ContractRenewalProcess from './ContractRenewalProcess';
+import ContractRenewalApprovalProcess from './ContractRenewalApprovalProcess';
 
 const ContractRenewalView = Vue.component('contract-renewal-view', {
   props: [
@@ -105,44 +108,37 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
     showMessaging: function() {
       this.view = "messages";
     },
-    getSubmitHandler: function() {
+    showContract: function() {
+      this.view = "contract";
+    },
+    startContractRenewalProcess: function() {
+      this.view = "contractRenewalProcess";
+    },
+    startRenewalApprovalProcess: function() {
+      this.view = "contractRenewalApprovalProcess";
+    },
+    submit: function() {
       if (this.currentUserIsRenter) {
-        // is renter
-        switch(this.actionLevel) {
-          case "ontime":
-            // view contract
-            return "Your landlord has approved your contract renewal request.";
-          case "approaching":
-            // renew contract
-            return "Your contract is almost up. Would you like to renew?";
-          case "late":
-            // ask landlord for an extension
-            return "Your contract has expired. Contact your landlord if you wish to keep this contract.";
-          default:
-            console.warn("This user action doesn't exist");
-            return "";
+        if (this.actionLevel === "ontime") {
+          this.showContract();
+        } else if (this.actionLevel === "approaching") {
+          // TODO start contract renewal process for renter
+          this.startContractRenewalProcess();
         }
       } else {
         // is landlord
-        switch(this.actionLevel) {
-          case "ontime":
-            // view contract and approve
-            return `${this.renterData.name} wants to start the contract renewal process.`;
-          case "approaching":
-            // contact renter
-            return `${this.renterData.name}'s contract is about to expire. We have reminded ${this.renterData.name}. Feel free to contact ${this.renterData.name} with further details if necessary.`;
-          case "late":
-            // contact user
-            return `${this.renterData.name}'s contract has expired. We have reminded ${this.renterData.name}. Feel free to contact ${this.renterData.name} with further details if necessary.`;
-          default:
-            console.warn("This user action doesn't exist");
-            return "";
+        if (this.actionLevel === "ontime") {
+            // TODO view contract and approve or decline renter's renewal request
+            this.startRenewalApprovalProcess();
         }
       }
     }
   },
   components: {
     messages: MessagesView,
+    contract: Contract,
+    contractRenewalProcess: ContractRenewalProcess,
+    contractRenewalApprovalProcess: ContractRenewalApprovalProcess
   },
   template: `
     <div>
@@ -153,7 +149,7 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
       <button v-on:click="showMessaging">
         {{ contactButtonLabel }}
       </button>
-      <button v-if="shouldShowSubmitButton" v-on:click="getSubmitHandler">
+      <button v-if="shouldShowSubmitButton" v-on:click="submit">
         {{ submitLabel }}
       </button>
       <highlevel-contract
@@ -169,6 +165,8 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
         :landlordUserId="landlordUserId"
         :renterUserId="renterUserId"
         :currentUserIsRenter="currentUserIsRenter"
+        :contract="contract"
+        :renterData="renterData"
       />
     </div>
   `
