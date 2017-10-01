@@ -61,7 +61,7 @@ const SingleUserActionRenderer = Vue.component('single-user-action-renderer', {
             // is renter
             switch(this.actionLevel) {
               case "ontime":
-                return "Your rent is due today.";
+                return "Your rent has been received.";
               case "approaching":
                 return `Your rent is due on the ${this.contract.rentDue}.`;
               case "late":
@@ -125,7 +125,7 @@ const SingleUserActionRenderer = Vue.component('single-user-action-renderer', {
             // is renter
             switch(this.actionLevel) {
               case "ontime":
-                return "You contract sign deadline is today.";
+                return "Your signature has been received.";
               case "approaching":
                 return `Your contract sign deadline is ${contract.signDeadline}.`;
               case "late":
@@ -186,7 +186,7 @@ const SingleUserActionRenderer = Vue.component('single-user-action-renderer', {
             // is renter
             switch(this.actionLevel) {
               case "ontime":
-                return "Your contract expires today, would you like to renew?";
+                return "Your landlord has approved your contract renewal request.";
               case "approaching":
                 return "Your contract is almost up. Would you like to renew?";
               case "late":
@@ -216,6 +216,37 @@ const SingleUserActionRenderer = Vue.component('single-user-action-renderer', {
           }
           return `${this.renterData.name}'s`;
         }
+      },
+      methods: {
+       // getSubmitHandler: function() {
+       //   if (this.currentUserIsRenter) {
+       //     // is renter
+       //     switch(this.actionLevel) {
+       //       case "ontime":
+       //         return "Your contract expires today, would you like to renew?";
+       //       case "approaching":
+       //         return "Your contract is almost up. Would you like to renew?";
+       //       case "late":
+       //         return "Your contract has expired.";
+       //       default:
+       //         console.warn("This user action doesn't exist");
+       //         return "";
+       //     }
+       //   } else {
+       //     // is landlord
+       //     switch(this.actionLevel) {
+       //       case "ontime":
+       //         return `${this.renterData.name} wants to start the contract renewal process.`;
+       //       case "approaching":
+       //         return `${this.renterData.name}'s contract is about to expire.`;
+       //       case "late":
+       //         return `${this.renterData.name}'s contract has expired.`;
+       //       default:
+       //         console.warn("This user action doesn't exist");
+       //         return "";
+       //     }
+       //   }
+       // }
       },
       template: `
         <div>

@@ -44,13 +44,13 @@ const SingleUserActionView = Vue.component('single-user-action-view', {
   },
   watch: {
     renterUserId: function(id) {
-      getUserData(this.renterUserId)
+      getUserData(id)
         .then(({ data }) => {
           this.renter = data;
         })
         .catch(error => console.error(error));
 
-      getLesseeContract(this.renterUserId)
+      getLesseeContract(id)
         .then(({ data }) => {
           this.contract = data;
         })
