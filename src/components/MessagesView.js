@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import {
+  getUserData,
   getMessages,
 } from '../queryUtil';
 
@@ -13,7 +14,7 @@ const MessagesView = Vue.component('messages-view', {
       type: String,
       required: true,
     },
-    selectedMessage: {
+    defaultMessage: {
       type: Object,
       default: {},
     },
@@ -25,7 +26,7 @@ const MessagesView = Vue.component('messages-view', {
   data: function() {
     return {
       messages: [],
-      selectedMessageId: this.selectedMessage.id,
+      selectedMessage: this.defaultMessage,
     };
   },
   mounted: function() {
@@ -39,6 +40,39 @@ const MessagesView = Vue.component('messages-view', {
       })
       .catch(error => console.error(error));
   },
+  methods: {
+    shorthandMessageLabel: function(message) {
+      const {
+        renterName,
+        landlordName,
+      } = message;
+      return `renter name: ${renterName}, landlord name: ${landlordName}`;
+    },
+    getShorthandMessageClass: function(message) {
+      const {
+        id,
+        read,
+      } = message;
+
+      let cls = "";
+
+      if (id === this.selectedMessage.id) {
+        cls += "selected";
+      }
+
+      if (read) {
+        cls += " read";
+      }
+
+      if (cls) {
+        return cls;
+      }
+
+    },
+    updateSelectedMessage: function(message) {
+      this.selectedMessage = message;
+    },
+  },
   template:`
     <div>
       <h1>
@@ -46,18 +80,17 @@ const MessagesView = Vue.component('messages-view', {
       </h1>
       <div>
         <div>
+          {{ selectedMessage.content }}
+        </div>
+        <div>
            <div
               v-for="message in messages"
            >
               <span
-                v-if="message.id === selectedMessageId"
+                v-on:click="updateSelectedMessage(message)"
+                :class="getShorthandMessageClass(message)"
               >
-               selected
-             </span>
-              <span
-                v-if="message.id !== selectedMessageId"
-              >
-              message
+                {{ shorthandMessageLabel(message) }}
              </span>
            </div>
         </div>

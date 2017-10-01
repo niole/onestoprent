@@ -31,8 +31,19 @@ function getContract(lesseeUserId) {
 }
 
 function getMessages(userId) {
-  return messages.filter(message =>
+  const foundMessages = messages.filter(message =>
     message.renterUserId === userId || message.landlordUserId === userId);
+
+  return foundMessages.map(message => {
+    const renterName = users.find(({ id }) => id === message.renterUserId).name;
+    const landlordName = users.find(({ id }) => id === message.landlordUserId).name;
+    return Object.assign(
+      {},
+      message, {
+        renterName,
+        landlordName,
+    });
+  });
 }
 
 function handleGetLesseeContract(req, res) {

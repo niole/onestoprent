@@ -56,7 +56,7 @@ const Main = Vue.component('main-page', {
             :currentUserIsRenter="isRenter"
             :renterUserId="renterUserId"
             :landlordUserId="landlordUserId"
-            :selectedMessage="alert"
+            :defaultMessage="alert"
           />
           <single-user-action-view
             v-if="showSingleUserActionView"
