@@ -1,5 +1,8 @@
 import Vue from 'vue';
+import MessagesView from './MessagesView';
 import HighlevelContract from './HighlevelContract';
+import ContractSignProcess from './ContractSignProcess';
+import Contract from './Contract';
 
 const ContractSignView = Vue.component('contract-sign-view', {
   props: [
@@ -10,7 +13,31 @@ const ContractSignView = Vue.component('contract-sign-view', {
     'contract',
     'actionLevel',
   ],
+  data: function () {
+    return {
+      view: "",
+    };
+  },
   computed: {
+    contactButtonLabel: function() {
+      if (this.currentUserIsRenter) {
+        return "Contact Landlord";
+      }
+      return `Contact ${this.renterData.name}`;
+    },
+    shouldShowSubmit: function() {
+      return this.currentUserIsRenter && this.actionLevel === "approaching" ||
+        !this.currentUserIsRenter && this.actionLevel === "ontime";
+    },
+    submitLabel: function() {
+      if (this.currentUserIsRenter && this.actionLevel === "approaching") {
+        return "Review and Sign Contract";
+      }
+
+      if (!this.currentUserIsRenter && this.actionLevel === "ontime") {
+        return "Review Contract";
+      }
+    },
     mainMessage: function() {
       if (this.currentUserIsRenter) {
         // is renter
@@ -47,17 +74,53 @@ const ContractSignView = Vue.component('contract-sign-view', {
       return `${this.renterData.name}'s`;
     }
   },
+  methods: {
+    showMessaging: function() {
+      this.view = "messages";
+    },
+    showSignProcess: function() {
+      this.view = "contractSignProcess";
+    },
+    showContract: function() {
+      this.view = "contract";
+    },
+    submit: function() {
+      if (this.currentUserIsRenter && this.actionLevel === "approaching") {
+        this.showSignProcess();
+      } else if (!this.currentUserIsRenter && this.actionLevel === "ontime") {
+        this.showContract();
+      }
+    },
+  },
+  components: {
+    messages: MessagesView,
+    contractSignProcess: ContractSignProcess,
+    contract: Contract,
+  },
   template: `
     <div>
       <h1>
         Sign Contract
       </h1>
       {{ mainMessage }}
+      <button v-on:click="showMessaging">
+        {{ contactButtonLabel }}
+      </button>
+      <button v-if="shouldShowSubmit" v-on:click="submit">
+        {{ submitLabel }}
+      </button>
       <highlevel-contract
         :contract="contract"
         :lesseeName="lesseeName"
         :active="false"
         :signatureDeadline="false"
+      />
+      <component :is="view"
+        :landlordUserId="landlordUserId"
+        :renterUserId="renterUserId"
+        :currentUserIsRenter="currentUserIsRenter"
+        :contract="contract"
+        :renterData="renterData"
       />
     </div>
   `

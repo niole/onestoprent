@@ -161,7 +161,7 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
         :securityDeposit="false"
         :rentDue="false"
       />
-      <component v-bind:is="view"
+      <component :is="view"
         :landlordUserId="landlordUserId"
         :renterUserId="renterUserId"
         :currentUserIsRenter="currentUserIsRenter"

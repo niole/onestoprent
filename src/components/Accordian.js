@@ -4,7 +4,7 @@ const Accordian = Vue.component('accordian', {
   props: {
     defaultSlot: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     totalSlots: {
       type: Number,
@@ -35,11 +35,11 @@ const Accordian = Vue.component('accordian', {
           v-for="i in totalSlots"
       >
         <div :class="slotClass(i)">
-          <span v-on:click="next">
-            next
-          </span>
           <span v-on:click="previous">
             previous
+          </span>
+          <span v-on:click="next">
+            next
           </span>
           <slot :name="i">
           </slot>

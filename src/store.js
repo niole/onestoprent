@@ -4,7 +4,7 @@ import {
 
 var store = {
   isRenter: false,
-  userId: "123",
+  userId: "234",
   currentView: MAIN_PAGE_ID,
   renterUserId: "",
   landlordUserId: "",
