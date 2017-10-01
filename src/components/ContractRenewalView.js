@@ -19,6 +19,14 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
       view: "",
     };
   },
+  watch: {
+    landlordUserId: function() {
+      this.resetView();
+    },
+    renterUserId: function() {
+      this.resetView();
+    },
+  },
   computed: {
     mainMessage: function() {
       if (this.currentUserIsRenter) {
@@ -105,6 +113,9 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
     }
   },
   methods: {
+    resetView: function() {
+      this.view = "";
+    },
     showMessaging: function() {
       this.view = "messages";
     },

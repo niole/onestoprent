@@ -6,6 +6,7 @@
   "alertType": "contractsign",
   "id": "abc",
   "propertyId": "lksdfn",
+  "createdAt": "July 6th 2017",
   "read": false
 },
 {
@@ -15,6 +16,7 @@
   "alertType": "contractsign",
   "id": "bcd",
   "propertyId": "9234",
+  "createdAt": "July 6th 2017",
   "read": false
 },
 {
@@ -24,6 +26,7 @@
   "alertType": "contractsign",
   "id": "cde",
   "propertyId": "jcnn345",
+  "createdAt": "July 6th 2017",
   "read": false
 },
 {
@@ -33,6 +36,7 @@
   "alertType": "rent",
   "id": "efg",
   "propertyId": "jcnn345",
+  "createdAt": "July 6th 2017",
   "read": false
 },
 {
@@ -42,14 +46,17 @@
   "alertType": "rent",
   "id": "fgh",
   "propertyId": "9234",
+  "createdAt": "July 6th 2017",
   "read": false
 },
 {
   "renterUserId": "ghi",
+  "landlordUserId": "234",
   "level": "approaching",
   "alertType": "rent",
   "id": "ghi",
   "propertyId": "9234",
+  "createdAt": "July 6th 2017",
   "read": false
 },
 {
@@ -59,6 +66,7 @@
   "alertType": "contractrenew",
   "id": "hij",
   "propertyId": "lksdfn",
+  "createdAt": "July 6th 2017",
   "read": false
 },
 {
@@ -68,6 +76,7 @@
   "alertType": "contractrenew",
   "id": "ijk",
   "propertyId": "lksdfn",
+  "createdAt": "July 6th 2017",
   "read": false
 },
 {
@@ -77,6 +86,7 @@
   "alertType": "contractrenew",
   "id": "jkl",
   "propertyId": "lksdfn",
+  "createdAt": "July 6th 2017",
   "read": false
 }
 ]

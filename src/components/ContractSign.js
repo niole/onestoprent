@@ -18,7 +18,18 @@ const ContractSignView = Vue.component('contract-sign-view', {
       view: "",
     };
   },
+  watch: {
+    landlordUserId: function() {
+      this.resetView();
+    },
+    renterUserId: function() {
+      this.resetView();
+    },
+  },
   computed: {
+    resetView: function() {
+      this.view = "";
+    },
     contactButtonLabel: function() {
       if (this.currentUserIsRenter) {
         return "Contact Landlord";

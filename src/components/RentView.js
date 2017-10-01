@@ -1,5 +1,7 @@
 import Vue from 'vue';
+import MessagesView from './MessagesView';
 import HighlevelContract from './HighlevelContract';
+import RentPaymentProcess from './RentPaymentProcess';
 
 const RentView = Vue.component('rent-view', {
   props: [
@@ -10,6 +12,30 @@ const RentView = Vue.component('rent-view', {
     'contract',
     'actionLevel',
   ],
+  methods: {
+    showMessaging: function() {
+      this.view = "messages";
+    },
+    submit: function() {
+      this.view = "payRent";
+    },
+    resetView: function() {
+      this.view = "";
+    },
+  },
+  data: function() {
+    return {
+      view: "",
+    };
+  },
+  watch: {
+    renterUserId: function() {
+      this.resetView();
+    },
+    landlordUserId: function() {
+      this.resetView();
+    },
+  },
   computed: {
     mainMessage: function() {
       if (this.currentUserIsRenter) {
@@ -45,7 +71,29 @@ const RentView = Vue.component('rent-view', {
         return "Your";
       }
       return `${this.renterData.name}'s`;
-    }
+    },
+    shouldShowSubmitButton: function() {
+      return this.currentUserIsRenter &&
+            (this.actionLevel === "approaching" ||
+            this.actionLevel === "late");
+    },
+    submitLabel: function() {
+      if (this.currentUserIsRenter &&
+            (this.actionLevel === "approaching" ||
+            this.actionLevel === "late")) {
+        return "Submit Rent Payment";
+      }
+    },
+    contactButtonLabel: function() {
+      if (this.currentUserIsRenter) {
+        return "Contact Your Landlord";
+      }
+      return `Contact ${this.renterData.name}`;
+    },
+  },
+  components: {
+    messages: MessagesView,
+    payRent: RentPaymentProcess,
   },
   template:`
     <div>
@@ -53,6 +101,12 @@ const RentView = Vue.component('rent-view', {
         Rent
       </h1>
       {{ mainMessage }}
+      <button v-on:click="showMessaging">
+        {{ contactButtonLabel }}
+      </button>
+      <button v-if="shouldShowSubmitButton" v-on:click="submit">
+        {{ submitLabel }}
+      </button>
       <highlevel-contract
         :contract="contract"
         :lesseeName="lesseeName"
@@ -61,6 +115,14 @@ const RentView = Vue.component('rent-view', {
         :signed="false"
         :securityDeposit="false"
         :duration="false"
+      />
+      <component :is="view"
+        :renterData="renterData"
+        :landlordUserId="landlordUserId"
+        :renterUserId="renterUserId"
+        :currentUserIsRenter="currentUserIsRenter"
+        :actionLevel="actionLevel"
+        :contract="contract"
       />
     </div>
   `

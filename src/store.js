@@ -3,8 +3,8 @@ import {
 } from './constants';
 
 var store = {
-  isRenter: false,
-  userId: "234",
+  isRenter: true,
+  userId: "ghi",
   currentView: MAIN_PAGE_ID,
   renterUserId: "",
   landlordUserId: "",
