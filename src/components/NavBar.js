@@ -8,6 +8,7 @@ import {
   getAlertsForUser,
 } from '../queryUtil';
 import {
+  CONTRACT_MANAGEMENT_PAGE_ID,
   MAIN_PAGE_ID,
   RENT_PAGE_ID,
   CONTRACT_RENEW_PAGE_ID,
@@ -38,6 +39,7 @@ const NavBar = Vue.component('nav-bar', {
           CONTRACT_SIGN_PAGE_ID,
           MESSAGEPAGE_ID,
         ],
+        contractManagementId: CONTRACT_MANAGEMENT_PAGE_ID,
         openAlert: "",
         selectedPage: MAIN_PAGE_ID,
       };
@@ -53,6 +55,9 @@ const NavBar = Vue.component('nav-bar', {
           contractrenew: [],
           message: [],
         });
+      },
+      shouldShowContractMangementButton: function() {
+         return !this.isRenter;
       },
     },
     methods: {
@@ -72,10 +77,25 @@ const NavBar = Vue.component('nav-bar', {
         this.openAlert = "";
         this.selectedPage = pageId;
         this.updatePage(pageId, alert);
-      }
+      },
+      showContractMangement: function(event) {
+        this.updatePage(
+          event.target.value, {
+          renterUserId: "",
+          landlordUserId: this.userId,
+        });
+      },
     },
     template: `
       <header>
+        <button
+          v-if="shouldShowContractMangementButton"
+          v-on:click="showContractMangement"
+          :value="contractManagementId"
+        >
+          Manage Contracts
+        </button>
+
         <quick-view
           v-for="alertType in alertTypes"
           :open="isQuickViewOpen(alertType)"

@@ -2,8 +2,10 @@ import Vue from 'vue';
 import NavBar from './NavBar';
 import SingleUserActionView from './SingleUserActionView';
 import MessagesView from './MessagesView';
+import ContractManagementView from './ContractManagementView';
 import store from '../store';
 import {
+  CONTRACT_MANAGEMENT_PAGE_ID,
   MAIN_PAGE_ID,
   RENT_PAGE_ID,
   CONTRACT_RENEW_PAGE_ID,
@@ -17,7 +19,7 @@ const Main = Vue.component('main-page', {
       return store;
     },
     methods: {
-      updatePage: function(pageId, alert = this.alert) {
+      updatePage: function(pageId, alert = {}) {
         // TODO on select, kill alert
 
         this.currentView = pageId;
@@ -29,10 +31,14 @@ const Main = Vue.component('main-page', {
     computed: {
       showSingleUserActionView: function() {
         return this.currentView && this.currentView !== MAIN_PAGE_ID &&
-          this.currentView !== MESSAGEPAGE_ID;
+          this.currentView !== MESSAGEPAGE_ID &&
+          this.currentView !== CONTRACT_MANAGEMENT_PAGE_ID;
       },
       showMessagesView: function() {
         return this.currentView === MESSAGEPAGE_ID;
+      },
+      showContractManagementView: function() {
+        return this.currentView === CONTRACT_MANAGEMENT_PAGE_ID;
       },
     },
     template: `
@@ -43,6 +49,11 @@ const Main = Vue.component('main-page', {
           :userId="userId"
         />
         <div>
+          <contract-management-view
+            v-if="showContractManagementView"
+            :userId="userId"
+            :currentUserIsRenter="isRenter"
+          />
           <messages-view
             v-if="showMessagesView"
             :currentUserIsRenter="isRenter"
