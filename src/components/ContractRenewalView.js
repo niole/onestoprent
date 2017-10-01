@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import HighlevelContract from './HighlevelContract';
+import MessagesView from './MessagesView';
 
 const ContractRenewalView = Vue.component('contract-renewal-view', {
   props: [
@@ -10,6 +11,11 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
     'contract',
     'actionLevel',
   ],
+  data: function() {
+    return {
+      view: "",
+    };
+  },
   computed: {
     mainMessage: function() {
       if (this.currentUserIsRenter) {
@@ -45,6 +51,19 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
         return "Your";
       }
       return `${this.renterData.name}'s`;
+    },
+    contactButtonLabel: function() {
+      if (this.currentUserIsRenter) {
+        return "Contact Landlord";
+      }
+      return `Contact ${this.renterData.name}`;
+    },
+    shouldShowSubmitButton: function() {
+      if (this.currentUserIsRenter) {
+        return this.actionLevel !== "late";
+      }
+      return this.actionLevel === "ontime";
+
     },
     submitLabel: function() {
       if (this.currentUserIsRenter) {
@@ -83,6 +102,9 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
     }
   },
   methods: {
+    showMessaging: function() {
+      this.view = "messages";
+    },
     getSubmitHandler: function() {
       if (this.currentUserIsRenter) {
         // is renter
@@ -95,7 +117,7 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
             return "Your contract is almost up. Would you like to renew?";
           case "late":
             // ask landlord for an extension
-            return "Your contract has expired. Contact your ";
+            return "Your contract has expired. Contact your landlord if you wish to keep this contract.";
           default:
             console.warn("This user action doesn't exist");
             return "";
@@ -119,13 +141,19 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
       }
     }
   },
+  components: {
+    messages: MessagesView,
+  },
   template: `
     <div>
       <h1>
         Contract Renew
       </h1>
       {{ mainMessage }}
-      <button v-on:click="getSubmitHandler">
+      <button v-on:click="showMessaging">
+        {{ contactButtonLabel }}
+      </button>
+      <button v-if="shouldShowSubmitButton" v-on:click="getSubmitHandler">
         {{ submitLabel }}
       </button>
       <highlevel-contract
@@ -136,6 +164,11 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
         :signatureDeadline="false"
         :securityDeposit="false"
         :rentDue="false"
+      />
+      <component v-bind:is="view"
+        :landlordUserId="landlordUserId"
+        :renterUserId="renterUserId"
+        :currentUserIsRenter="currentUserIsRenter"
       />
     </div>
   `

@@ -16,7 +16,9 @@ const MessagesView = Vue.component('messages-view', {
     },
     defaultMessage: {
       type: Object,
-      default: {},
+      default: function() {
+        return {};
+      },
     },
     currentUserIsRenter: {
       type: Boolean,
