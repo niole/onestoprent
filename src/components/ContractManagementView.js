@@ -1,5 +1,8 @@
 import Vue from 'vue';
-import { getAllContracts } from '../queryUtil';
+import {
+  getUserData,
+  getAllContracts,
+} from '../queryUtil';
 import HighlevelContract from './HighlevelContract';
 import InitializeContractProcess from './InitializeContractProcess';
 
@@ -27,9 +30,27 @@ const ContractManagementView = Vue.component('contract-management-view', {
       view: "find",
       contracts: [],
       selectedContract: {},
+      userData: {},
     };
   },
+  watch: {
+    selectedContract: function(contract) {
+      if (contract.lesseeUserId) {
+        getUserData(contract.lesseeUserId)
+          .then(({ data }) => {
+            this.userData = data;
+          })
+          .catch(error => console.error(error));
+      }
+    },
+  },
   methods: {
+    resetSelectedContract: function() {
+      this.selectedContract = {};
+    },
+    resetUserData: function() {
+      this.userData = {};
+    },
     getAllContracts: function(id) {
       getAllContracts(id, this.currentUserIsRenter)
         .then(({ data }) => {
@@ -41,9 +62,13 @@ const ContractManagementView = Vue.component('contract-management-view', {
         .catch(error => console.error(error));
     },
     resetView: function() {
+      this.resetSelectedContract();
+      this.resetUserData();
       this.view = "find";
     },
     updateView: function(event) {
+      this.resetSelectedContract();
+      this.resetUserData();
       this.view = event.target.value;
     },
     getButtonClass: function(buttonType) {
@@ -88,6 +113,9 @@ const ContractManagementView = Vue.component('contract-management-view', {
         }
       }
     },
+    contractRenterName: function() {
+      return `${this.userData.name}'s`;
+    },
   },
   template: `
     <div>
@@ -97,12 +125,11 @@ const ContractManagementView = Vue.component('contract-management-view', {
         </h1>
       </div>
       <div class="center-horiz">
-        <h3>
-          {{ subHeader }}
-        </h3>
+        {{ subHeader }}
       </div>
-      <div>
-        <div>
+      <div class="main-with-left-nav">
+
+        <div class="side-nav">
           <button
             v-if="!currentUserIsRenter"
             value="init"
@@ -126,47 +153,47 @@ const ContractManagementView = Vue.component('contract-management-view', {
             Find Contract
           </button>
         </div>
-        <div v-if="view !== 'init'">
-          <input
-            placeholder="find contract"
-            type="search"
-            v-on:keyup="filterContracts"
+
+        <div>
+          <div v-if="view !== 'init'">
+            <input
+              placeholder="find contract"
+              type="search"
+              v-on:keyup="filterContracts"
+            />
+            <ul>
+              <li
+                v-for="contract in contracts"
+                v-if="contract.show"
+                v-on:click="selectContract(contract)"
+              >
+                {{ contract.address }}
+              </li>
+            </ul>
+          </div>
+
+          <init-contract-process
+            v-if="view === 'init'"
+            :userId="userId"
           />
-          <ul>
-            <li
-              v-for="contract in contracts"
-              v-if="contract.show"
-              v-on:click="selectContract(contract)"
+
+          <div
+              v-if="selectedContract.id"
+          >
+            <highlevel-contract
+              v-if="selectedContract.id"
+              :contract="selectedContract"
+              :lesseeName="contractRenterName"
+            />
+            <button
+              v-if="view === 'terminate'"
+              v-on:click="terminate"
             >
-              {{ contract.address }}
-            </li>
-          </ul>
+              Terminate This Renter's Contract
+            </button>
+          </div>
         </div>
 
-        <init-contract-process
-          v-if="view === 'init'"
-          :userId="userId"
-        />
-
-        <div
-            v-if="selectedContract.id"
-        >
-          <h3
-            v-if="selectedContract.id"
-          >
-            Selected Contract
-          </h3>
-          <highlevel-contract
-            v-if="selectedContract.id"
-            :contract="selectedContract"
-          />
-          <button
-            v-if="view === 'terminate'"
-            v-on:click="terminate"
-          >
-            Terminate This Renter's Contract
-          </button>
-        </div>
       </div>
     </div>
   `

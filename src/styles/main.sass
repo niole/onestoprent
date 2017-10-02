@@ -27,8 +27,6 @@ button
   &.selected
     background: white
     font-weight: bold
-    border: 1px solid
-    @extend .shadow-ext
 
 h1, h2, h3, h4
   display: inline-block
@@ -50,3 +48,12 @@ header
 
   .main-content
     height: calc(100% - 58px)
+
+.side-nav
+  display: inline-flex
+  width: 175px
+  flex-direction: column
+
+.main-with-left-nav
+  display: flex
+  flex-direction: row
