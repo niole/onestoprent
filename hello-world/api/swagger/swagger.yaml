@@ -18,6 +18,32 @@ consumes:
 produces:
   - application/json
 paths:
+  /contract/find/all:
+    x-swagger-router-controller: hello_world
+    get:
+      description: returns all contracts associated with a user
+      operationId: getAllContracts
+      parameters:
+        - name: userId
+          in: query
+          description: user id associated with contracts
+          required: true
+          type: string
+        - name: isRenter
+          in: query
+          description: if is a renter or landlord
+          required: true
+          type: boolean
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: "#/definitions/allAlertsResponse"
+
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   /contract/find/lessee:
     x-swagger-router-controller: hello_world
     get:

@@ -31,3 +31,9 @@ export function getMessages(userId) {
   const url = `${apiHost}/messages?userId=${userId}`;
   return axios(url);
 }
+
+export function getAllContracts(userId, isRenter) {
+  const url = `${apiHost}/contract/find/all?userId=${userId}&isRenter=${isRenter}`;
+  return axios(url);
+}
+

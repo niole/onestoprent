@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import { getAllContracts } from '../queryUtil';
 
 const ContractManagementView = Vue.component('contract-management-view', {
   props: {
@@ -11,12 +12,31 @@ const ContractManagementView = Vue.component('contract-management-view', {
       required: true,
     }
   },
+  mounted: function() {
+      this.getAllContracts(this.userId);
+  },
+  watch: {
+    userId: function(id) {
+      this.getAllContracts(id);
+    },
+  },
   data: function() {
     return {
       view: "find",
+      contracts: [],
     };
   },
   methods: {
+    getAllContracts: function(id) {
+      getAllContracts(id, this.currentUserIsRenter)
+        .then(({ data }) => {
+          this.contracts = data.map(c => {
+            c.show = false
+            return c;
+          });
+        })
+        .catch(error => console.error(error));
+    },
     resetView: function() {
       this.view = "find";
     },
@@ -27,6 +47,19 @@ const ContractManagementView = Vue.component('contract-management-view', {
       if (buttonType === this.view) {
         return "selected";
       }
+    },
+    filterContracts: function(event) {
+      const value = event.target.value;
+      const p = new RegExp(value, 'i');
+
+      this.contracts = this.contracts.map(c => {
+        if (value && p.test(c.address)) {
+          c.show = true;
+        } else if (c.show) {
+          c.show = false;
+        }
+        return c;
+      });
     },
   },
   computed: {
@@ -74,6 +107,21 @@ const ContractManagementView = Vue.component('contract-management-view', {
           >
             Find Contract
           </button>
+        </div>
+        <div>
+          <input
+            placeholder="find contract"
+            type="search"
+            v-on:keyup="filterContracts"
+          />
+          <ul>
+            <li
+              v-for="contract in contracts"
+              v-if="contract.show"
+            >
+              {{ contract.address }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>

@@ -6,6 +6,23 @@ const properties = require('../../fixtures/properties.json');
 const landlords = require('../../fixtures/landlords.json');
 const contracts = require('../../fixtures/contracts.json');
 
+function getAllContractsRelatedToUser(userId, isRenter) {
+  if (isRenter) {
+    return contracts.filter(({ lesseeUserId }) => lesseeUserId === userId);
+  }
+
+  const landlord = landlords.find(l => l.userId === userId);
+  if (landlord) {
+    const props = properties.filter(p =>
+      p.landlordId === landlord.id
+    );
+    return props.reduce((all, next) => {
+      return all.concat(contracts.filter(c => c.propertyId === next.id));
+    }, []);
+  }
+  return [];
+}
+
 function findUser(userId) {
   return users.find(u => u.id === userId);
 }
@@ -44,6 +61,15 @@ function getMessages(userId) {
         landlordName,
     });
   });
+}
+
+function getAllContracts(req, res) {
+  const {
+    userId,
+    isRenter,
+  } = req.swagger.params;
+
+  res.json(getAllContractsRelatedToUser(userId.value, isRenter.value));
 }
 
 function handleGetLesseeContract(req, res) {
@@ -151,4 +177,5 @@ module.exports = {
   alertsForUser,
   getUser,
   handleGetLesseeContract,
+  getAllContracts,
 };
