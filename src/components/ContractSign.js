@@ -103,6 +103,11 @@ const ContractSignView = Vue.component('contract-sign-view', {
         this.showContract();
       }
     },
+    getSubmitClass: function(buttonType) {
+      if (buttonType === this.view || buttonType === "submit" && this.view !== "messages") {
+        return "selected";
+      }
+    },
   },
   components: {
     messages: MessagesView,
@@ -115,12 +120,14 @@ const ContractSignView = Vue.component('contract-sign-view', {
       :subheader="mainMessage"
     >
       <button
+        :class="getSubmitClass('messages')"
         slot="side-nav-content"
         v-on:click="showMessaging"
       >
         {{ contactButtonLabel }}
       </button>
       <button
+        :class="getSubmitClass('submit')"
         slot="side-nav-content"
         v-if="shouldShowSubmit"
         v-on:click="submit"

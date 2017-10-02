@@ -117,6 +117,8 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
     getButtonClass: function(buttonType) {
       if (this.view === buttonType) {
         return "selected";
+      } else if (buttonType === "submit" && this.view.indexOf("contract") > -1) {
+        return "selected";
       }
     },
     resetView: function() {
@@ -170,6 +172,7 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
         {{ contactButtonLabel }}
       </button>
       <button
+        :class="getButtonClass('submit')"
         slot="side-nav-content"
         v-if="shouldShowSubmitButton"
         v-on:click="submit"
