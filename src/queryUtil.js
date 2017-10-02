@@ -37,3 +37,7 @@ export function getAllContracts(userId, isRenter) {
   return axios(url);
 }
 
+export function getLandlordProperties(userId) {
+  const url = `${apiHost}/properties/find/all?userId=${userId}`;
+  return axios(url);
+}

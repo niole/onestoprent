@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import { getAllContracts } from '../queryUtil';
 import HighlevelContract from './HighlevelContract';
+import InitializeContractProcess from './InitializeContractProcess';
 
 const ContractManagementView = Vue.component('contract-management-view', {
   props: {
@@ -70,6 +71,10 @@ const ContractManagementView = Vue.component('contract-management-view', {
         return c;
       });
     },
+    terminate: function() {
+      // TODO add friction to this process
+      console.log('terminate ', this.selectedContract);
+    },
   },
   computed: {
     subHeader: function() {
@@ -134,6 +139,11 @@ const ContractManagementView = Vue.component('contract-management-view', {
           </ul>
         </div>
 
+        <init-contract-process
+          v-if="view === 'init'"
+          :userId="userId"
+        />
+
         <div
             v-if="selectedContract.id"
         >
@@ -146,6 +156,12 @@ const ContractManagementView = Vue.component('contract-management-view', {
             v-if="selectedContract.id"
             :contract="selectedContract"
           />
+          <button
+            v-if="view === 'terminate'"
+            v-on:click="terminate"
+          >
+            Terminate This Renter's Contract
+          </button>
         </div>
       </div>
     </div>
