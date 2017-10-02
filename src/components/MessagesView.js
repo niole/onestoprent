@@ -47,8 +47,9 @@ const MessagesView = Vue.component('messages-view', {
       const {
         renterName,
         landlordName,
+        createdAt,
       } = message;
-      return `renter name: ${renterName}, landlord name: ${landlordName}`;
+      return `${createdAt}, ${renterName}, ${landlordName}`;
     },
     getShorthandMessageClass: function(message) {
       const {
@@ -76,27 +77,26 @@ const MessagesView = Vue.component('messages-view', {
     },
   },
   template:`
-    <div>
-      <h1>
-        Messages
-      </h1>
-      <div>
-        <div>
-          {{ selectedMessage.content }}
-        </div>
-        <div>
-           <div
-              v-for="message in messages"
-           >
-              <span
-                v-on:click="updateSelectedMessage(message)"
-                :class="getShorthandMessageClass(message)"
-              >
-                {{ shorthandMessageLabel(message) }}
-             </span>
-           </div>
-        </div>
+    <div class="messaging-container">
+
+      <div class="side-nav">
+         <div
+            v-for="message in messages"
+            class="shorthand-message"
+         >
+            <span
+              v-on:click="updateSelectedMessage(message)"
+              :class="getShorthandMessageClass(message)"
+            >
+              {{ shorthandMessageLabel(message) }}
+           </span>
+         </div>
       </div>
+
+      <div>
+        {{ selectedMessage.content }}
+      </div>
+
     </div>
   `
 });

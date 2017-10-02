@@ -153,6 +153,7 @@ const ContractManagementView = Vue.component('contract-management-view', {
       <div
         slot="main-content"
         v-if="view !== 'init'"
+        class="search-subview"
       >
         <input
           placeholder="find contract"

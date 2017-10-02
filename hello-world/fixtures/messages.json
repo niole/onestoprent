@@ -7,7 +7,8 @@
     "messageType": "repair",
     "alertType": "message",
     "content": "my bathtub's broken, who should I call for help?",
-    "read": false
+    "read": false,
+    "createdAt": "October 1st 2017"
   },
   {
     "id": "b",
@@ -17,6 +18,7 @@
     "messageType": "question",
     "alertType": "message",
     "content": "what's my monthly rent again?",
-    "read": false
+    "read": false,
+    "createdAt": "September 30th 2017"
   }
 ]

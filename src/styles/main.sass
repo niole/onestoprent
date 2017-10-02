@@ -1,3 +1,5 @@
+@import 'search'
+@import 'messages'
 @import 'landingPage'
 @import 'util'
 @import 'menu'
@@ -7,10 +9,18 @@
 
 body
   font-family: "Open Sans"
-  background: whitesmoke
+  font-size: 14px
   margin: 0px
 
+input
+  font-size: 14px
+  padding: 1em
+  border-radius: 2px
+  border: 1px solid
+  color: #d3d3d3
+
 button
+  font-size: 14px
   font-family: "Open Sans"
   border-radius: 2px
   padding: 1em 2em
@@ -25,7 +35,8 @@ button
     border: none
 
   &.selected
-    background: white
+    background: #d3d3d3
+    color: white
     font-weight: bold
 
 h1, h2, h3, h4
@@ -49,11 +60,14 @@ header
   .main-content
     height: calc(100% - 58px)
 
-.side-nav
-  display: inline-flex
-  width: 175px
-  flex-direction: column
-
 .main-with-left-nav
   display: flex
   flex-direction: row
+
+  .side-nav
+    display: inline-flex
+    width: 175px
+    flex-direction: column
+
+  .main-content
+    flex-grow: 1
