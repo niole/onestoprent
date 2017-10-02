@@ -5,6 +5,7 @@ import {
 } from '../queryUtil';
 import HighlevelContract from './HighlevelContract';
 import InitializeContractProcess from './InitializeContractProcess';
+import HeaderWithSideNav from './HeaderWithSideNav';
 
 const ContractManagementView = Vue.component('contract-management-view', {
   props: {
@@ -118,84 +119,80 @@ const ContractManagementView = Vue.component('contract-management-view', {
     },
   },
   template: `
-    <div>
-      <div class="center-horiz">
-        <h1>
-          Manage Your Contracts
-        </h1>
+    <header-w-sidenav
+      header="Manage Your Contracts"
+      :subheader="subHeader"
+    >
+      <button
+        slot="side-nav-content"
+        v-if="!currentUserIsRenter"
+        value="init"
+        v-on:click="updateView"
+        :class="getButtonClass('init')"
+      >
+        Initialize New Contract
+      </button>
+
+      <button
+        slot="side-nav-content"
+        value="terminate"
+        v-on:click="updateView"
+        :class="getButtonClass('terminate')"
+      >
+        Terminate Contract
+      </button>
+      <button
+        slot="side-nav-content"
+        value="find"
+        v-on:click="updateView"
+        :class="getButtonClass('find')"
+      >
+        Find Contract
+      </button>
+
+      <div
+        slot="main-content"
+        v-if="view !== 'init'"
+      >
+        <input
+          placeholder="find contract"
+          type="search"
+          v-on:keyup="filterContracts"
+        />
+        <ul>
+          <li
+            v-for="contract in contracts"
+            v-if="contract.show"
+            v-on:click="selectContract(contract)"
+          >
+            {{ contract.address }}
+          </li>
+        </ul>
       </div>
-      <div class="center-horiz">
-        {{ subHeader }}
+
+      <init-contract-process
+        v-if="view === 'init'"
+        slot="main-content"
+        :userId="userId"
+      />
+
+      <div
+        slot="main-content"
+        v-if="selectedContract.id"
+      >
+        <highlevel-contract
+          v-if="selectedContract.id"
+          :contract="selectedContract"
+          :lesseeName="contractRenterName"
+        />
+        <button
+          v-if="view === 'terminate'"
+          v-on:click="terminate"
+        >
+          Terminate This Renter's Contract
+        </button>
       </div>
-      <div class="main-with-left-nav">
-
-        <div class="side-nav">
-          <button
-            v-if="!currentUserIsRenter"
-            value="init"
-            v-on:click="updateView"
-            :class="getButtonClass('init')"
-          >
-            Initialize New Contract
-          </button>
-          <button
-            value="terminate"
-            v-on:click="updateView"
-            :class="getButtonClass('terminate')"
-          >
-            Terminate Contract
-          </button>
-          <button
-            value="find"
-            v-on:click="updateView"
-            :class="getButtonClass('find')"
-          >
-            Find Contract
-          </button>
-        </div>
-
-        <div>
-          <div v-if="view !== 'init'">
-            <input
-              placeholder="find contract"
-              type="search"
-              v-on:keyup="filterContracts"
-            />
-            <ul>
-              <li
-                v-for="contract in contracts"
-                v-if="contract.show"
-                v-on:click="selectContract(contract)"
-              >
-                {{ contract.address }}
-              </li>
-            </ul>
-          </div>
-
-          <init-contract-process
-            v-if="view === 'init'"
-            :userId="userId"
-          />
-
-          <div
-              v-if="selectedContract.id"
-          >
-            <highlevel-contract
-              v-if="selectedContract.id"
-              :contract="selectedContract"
-              :lesseeName="contractRenterName"
-            />
-            <button
-              v-if="view === 'terminate'"
-              v-on:click="terminate"
-            >
-              Terminate This Renter's Contract
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    </header-w-sidenav>
   `
 });
 

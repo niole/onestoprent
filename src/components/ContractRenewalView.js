@@ -4,6 +4,7 @@ import HighlevelContract from './HighlevelContract';
 import MessagesView from './MessagesView';
 import ContractRenewalProcess from './ContractRenewalProcess';
 import ContractRenewalApprovalProcess from './ContractRenewalApprovalProcess';
+import HeaderWithSideNav from './HeaderWithSideNav';
 
 const ContractRenewalView = Vue.component('contract-renewal-view', {
   props: [
@@ -113,6 +114,11 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
     }
   },
   methods: {
+    getButtonClass: function(buttonType) {
+      if (this.view === buttonType) {
+        return "selected";
+      }
+    },
     resetView: function() {
       this.view = "";
     },
@@ -152,18 +158,26 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
     contractRenewalApprovalProcess: ContractRenewalApprovalProcess
   },
   template: `
-    <div>
-      <h1>
-        Contract Renew
-      </h1>
-      {{ mainMessage }}
-      <button v-on:click="showMessaging">
+    <header-w-sidenav
+      header="Contract Renew"
+      :subheader="mainMessage"
+    >
+      <button
+        :class="getButtonClass('messages')"
+        v-on:click="showMessaging"
+        slot="side-nav-content"
+      >
         {{ contactButtonLabel }}
       </button>
-      <button v-if="shouldShowSubmitButton" v-on:click="submit">
+      <button
+        slot="side-nav-content"
+        v-if="shouldShowSubmitButton"
+        v-on:click="submit"
+      >
         {{ submitLabel }}
       </button>
       <highlevel-contract
+        slot="main-content"
         :contract="contract"
         :lesseeName="lesseeName"
         :signed="false"
@@ -173,13 +187,14 @@ const ContractRenewalView = Vue.component('contract-renewal-view', {
         :rentDue="false"
       />
       <component :is="view"
+        slot="main-content"
         :landlordUserId="landlordUserId"
         :renterUserId="renterUserId"
         :currentUserIsRenter="currentUserIsRenter"
         :contract="contract"
         :renterData="renterData"
       />
-    </div>
+    </header-w-sidenav>
   `
 });
 
