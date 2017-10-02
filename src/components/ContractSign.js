@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import MessagesView from './MessagesView';
+import HeaderWithSideNav from './HeaderWithSideNav';
 import HighlevelContract from './HighlevelContract';
 import ContractSignProcess from './ContractSignProcess';
 import Contract from './Contract';
@@ -109,31 +110,39 @@ const ContractSignView = Vue.component('contract-sign-view', {
     contract: Contract,
   },
   template: `
-    <div>
-      <h1>
-        Sign Contract
-      </h1>
-      {{ mainMessage }}
-      <button v-on:click="showMessaging">
+    <header-w-sidenav
+      header="Sign Contract"
+      :subheader="mainMessage"
+    >
+      <button
+        slot="side-nav-content"
+        v-on:click="showMessaging"
+      >
         {{ contactButtonLabel }}
       </button>
-      <button v-if="shouldShowSubmit" v-on:click="submit">
+      <button
+        slot="side-nav-content"
+        v-if="shouldShowSubmit"
+        v-on:click="submit"
+      >
         {{ submitLabel }}
       </button>
       <highlevel-contract
+        slot="main-content"
         :contract="contract"
         :lesseeName="lesseeName"
         :active="false"
         :signatureDeadline="false"
       />
       <component :is="view"
+        slot="main-content"
         :landlordUserId="landlordUserId"
         :renterUserId="renterUserId"
         :currentUserIsRenter="currentUserIsRenter"
         :contract="contract"
         :renterData="renterData"
       />
-    </div>
+    </header-w-sidenav>
   `
 });
 
