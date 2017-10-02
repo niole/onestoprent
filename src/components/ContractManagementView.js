@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { getAllContracts } from '../queryUtil';
+import HighlevelContract from './HighlevelContract';
 
 const ContractManagementView = Vue.component('contract-management-view', {
   props: {
@@ -24,6 +25,7 @@ const ContractManagementView = Vue.component('contract-management-view', {
     return {
       view: "find",
       contracts: [],
+      selectedContract: {},
     };
   },
   methods: {
@@ -46,6 +48,13 @@ const ContractManagementView = Vue.component('contract-management-view', {
     getButtonClass: function(buttonType) {
       if (buttonType === this.view) {
         return "selected";
+      }
+    },
+    selectContract: function(contract) {
+      if (contract.id === this.selectedContract.id) {
+        this.selectedContract = {};
+      } else {
+        this.selectedContract = contract;
       }
     },
     filterContracts: function(event) {
@@ -108,7 +117,7 @@ const ContractManagementView = Vue.component('contract-management-view', {
             Find Contract
           </button>
         </div>
-        <div>
+        <div v-if="view !== 'init'">
           <input
             placeholder="find contract"
             type="search"
@@ -118,10 +127,25 @@ const ContractManagementView = Vue.component('contract-management-view', {
             <li
               v-for="contract in contracts"
               v-if="contract.show"
+              v-on:click="selectContract(contract)"
             >
               {{ contract.address }}
             </li>
           </ul>
+        </div>
+
+        <div
+            v-if="selectedContract.id"
+        >
+          <h3
+            v-if="selectedContract.id"
+          >
+            Selected Contract
+          </h3>
+          <highlevel-contract
+            v-if="selectedContract.id"
+            :contract="selectedContract"
+          />
         </div>
       </div>
     </div>
