@@ -85,9 +85,15 @@ const NavBar = Vue.component('nav-bar', {
           landlordUserId: this.userId,
         });
       },
+      home: function() {
+        this.updatePage(MAIN_PAGE_ID, {});
+      },
     },
     template: `
       <header>
+        <button v-on:click="home">
+          Home
+        </button>
         <button
           v-if="shouldShowContractMangementButton"
           v-on:click="showContractMangement"

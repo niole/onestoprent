@@ -35,11 +35,7 @@ const InitializeContractProcess = Vue.component('init-contract-process', {
   },
   template: `
     <div>
-      <h1>
-        Initialize New Contract
-      </h1>
       <form action="">
-
         <select
           name="whichProperty"
           v-on:change="selectProperty"

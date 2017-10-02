@@ -40,15 +40,21 @@ const Main = Vue.component('main-page', {
       showContractManagementView: function() {
         return this.currentView === CONTRACT_MANAGEMENT_PAGE_ID;
       },
+      welcomeSubHeader: function() {
+        if (this.isRenter) {
+          return "Keep track of your rental."
+        }
+        return "Keep track of your properties."
+      },
     },
     template: `
-      <div>
+      <div class="main">
         <nav-bar
           :updatePage="updatePage"
           :isRenter="isRenter"
           :userId="userId"
         />
-        <div>
+        <div class="main-content">
           <contract-management-view
             v-if="showContractManagementView"
             :userId="userId"
@@ -69,6 +75,14 @@ const Main = Vue.component('main-page', {
             :renterUserId="renterUserId"
             :alertLevel="alert.level"
           />
+          <div class="landing-page" v-if="currentView === 'main'">
+            <h1>
+              Welcome
+            </h1>
+            <div>
+              {{ welcomeSubHeader }}
+            </div>
+          </div>
         </div>
       </div>
     `

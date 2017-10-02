@@ -91,12 +91,16 @@ const ContractManagementView = Vue.component('contract-management-view', {
   },
   template: `
     <div>
-      <h1>
-        Manage Your Contracts
-      </h1>
-      <h3>
-        {{ subHeader }}
-      </h3>
+      <div class="center-horiz">
+        <h1>
+          Manage Your Contracts
+        </h1>
+      </div>
+      <div class="center-horiz">
+        <h3>
+          {{ subHeader }}
+        </h3>
+      </div>
       <div>
         <div>
           <button
