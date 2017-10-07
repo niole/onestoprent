@@ -103,8 +103,9 @@ const NavBar = Vue.component('nav-bar', {
         </button>
         <div class="alerts">
           <quick-view
-            v-for="alertType in alertTypes"
+            v-for="(alertType, index) in alertTypes"
             :open="isQuickViewOpen(alertType)"
+            :shouldDropRight="index === (alertTypes.length - 1)"
           >
             <alert-icon
               :onClick="handleAlertClick"
