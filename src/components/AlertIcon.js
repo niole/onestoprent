@@ -18,13 +18,20 @@ const AlertIcon = Vue.component('alert-icon', {
         }
         return 'alert-icon';
       },
+      countClass: function() {
+        if (this.count === 0) {
+          return "count disabled";
+        }
+        return "count";
+      },
+      isDisabled: function() {
+        return this.count === 0;
+      },
     },
     template: `
       <div :class="iconClass">
-        <div class="count">
-          {{ count }}
-        </div>
         <button
+          :disabled="isDisabled"
           :class="alertButtonClass"
           :id="label"
           :value="label"
@@ -32,6 +39,9 @@ const AlertIcon = Vue.component('alert-icon', {
         >
           {{ label }}
         </button>
+        <div :class="countClass">
+          {{ count }}
+        </div>
       </div>
     `
 });

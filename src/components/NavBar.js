@@ -101,28 +101,29 @@ const NavBar = Vue.component('nav-bar', {
         >
           Manage Contracts
         </button>
-
-        <quick-view
-          v-for="alertType in alertTypes"
-          :open="isQuickViewOpen(alertType)"
-        >
-          <alert-icon
-            :onClick="handleAlertClick"
-            :count="alertMap[alertType].length"
-            :label="alertType"
-            :type="alertType"
-            :focused="selectedPage === alertType"
-            slot="trigger"
-          />
-          <div slot="content">
-            <alert-menu-item
-              v-for="alert in alertMap[alertType]"
-              :onClick="onQuickAlertClick"
-              :isRenter="isRenter"
-              :alert="alert"
+        <div class="alerts">
+          <quick-view
+            v-for="alertType in alertTypes"
+            :open="isQuickViewOpen(alertType)"
+          >
+            <alert-icon
+              :onClick="handleAlertClick"
+              :count="alertMap[alertType].length"
+              :label="alertType"
+              :type="alertType"
+              :focused="selectedPage === alertType"
+              slot="trigger"
             />
-          </div>
-        </quick-view>
+            <div slot="content">
+              <alert-menu-item
+                v-for="alert in alertMap[alertType]"
+                :onClick="onQuickAlertClick"
+                :isRenter="isRenter"
+                :alert="alert"
+              />
+            </div>
+          </quick-view>
+        </div>
       </header>
     `
 });
