@@ -3,6 +3,7 @@ import {
   getUserData,
   getAllContracts,
 } from '../queryUtil';
+import SearchBox from './SearchBox';
 import HighlevelContract from './HighlevelContract';
 import InitializeContractProcess from './InitializeContractProcess';
 import HeaderWithSideNav from './HeaderWithSideNav';
@@ -32,6 +33,8 @@ const ContractManagementView = Vue.component('contract-management-view', {
       contracts: [],
       selectedContract: {},
       userData: {},
+      contractFilter: function(contract) { return contract.show; },
+      formatSearchElementLabel: function(contract) { return contract.address; },
     };
   },
   watch: {
@@ -150,26 +153,16 @@ const ContractManagementView = Vue.component('contract-management-view', {
         Find Contract
       </button>
 
-      <div
+      <search-box
         slot="main-content"
         v-if="view !== 'init'"
-        class="search-subview"
-      >
-        <input
-          placeholder="find contract"
-          type="search"
-          v-on:keyup="filterContracts"
-        />
-        <ul>
-          <li
-            v-for="contract in contracts"
-            v-if="contract.show"
-            v-on:click="selectContract(contract)"
-          >
-            {{ contract.address }}
-          </li>
-        </ul>
-      </div>
+        :onKeyUp="filterContracts"
+        :items="contracts"
+        :filter="contractFilter"
+        :formatLabel="formatSearchElementLabel"
+        :onClick="selectContract"
+        :heightPerItem="'20px'"
+      />
 
       <init-contract-process
         v-if="view === 'init'"
