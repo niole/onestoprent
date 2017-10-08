@@ -2,6 +2,7 @@ import Vue from 'vue';
 import AlertIcon from './AlertIcon';
 import QuickView from './QuickView';
 import AlertMenuItem from './AlertMenuItem';
+import Money from './icons/Money';
 import {
   getAlertsForRenter,
   getAlertsForLandlord,
