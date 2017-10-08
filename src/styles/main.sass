@@ -13,9 +13,26 @@ body
   font-size: 14px
   margin: 0px
 
+label
+  font-weight: bold
+
+form
+  .form-group
+    margin-top: 5px
+    display: flex
+    flex-direction: column
+
+    > label
+      margin-bottom: 5px
+      position: relative
+      right: 25px
+
+  .actions
+    text-align: right
+
 input
   font-size: 14px
-  padding: 1em
+  padding: .5em
   border-radius: 2px
   border: 1px solid
   color: #d3d3d3
@@ -69,3 +86,8 @@ header
 
   .main-content
     flex-grow: 1
+
+#init-contract-form
+  display: block
+  width: 400px
+  margin: auto

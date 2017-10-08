@@ -34,7 +34,7 @@ const InitializeContractProcess = Vue.component('init-contract-process', {
     },
   },
   template: `
-    <div>
+    <div id="init-contract-form">
       <form action="">
         <select
           name="whichProperty"
@@ -79,9 +79,11 @@ const InitializeContractProcess = Vue.component('init-contract-process', {
           label="Security Deposit"
           name="securityDeposit"
         />
-        <button type="submit">
-          Create Contract and Notify Lessee
-        </button>
+        <div class="actions">
+          <button type="submit">
+            Create Contract and Notify Lessee
+          </button>
+        </div>
       </form>
     </div>
   `

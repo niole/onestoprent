@@ -8,7 +8,7 @@ const FormInput = Vue.component('form-input', {
     'id',
   ],
   template: `
-    <div>
+    <div class="form-group">
       <label
         :for="name"
       >
