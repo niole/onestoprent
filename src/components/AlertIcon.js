@@ -5,7 +5,7 @@ const AlertIcon = Vue.component('alert-icon', {
       'focused',
       'onClick',
       'count',
-      'label',
+      'value',
       'type'
     ],
     computed: {
@@ -33,11 +33,11 @@ const AlertIcon = Vue.component('alert-icon', {
         <button
           :disabled="isDisabled"
           :class="alertButtonClass"
-          :id="label"
-          :value="label"
+          :id="value"
+          :value="value"
           v-on:click="onClick"
         >
-          {{ label }}
+          <slot name="label"></slot>
         </button>
         <div :class="countClass">
           {{ count }}

@@ -62,7 +62,7 @@ const NavBar = Vue.component('nav-bar', {
     },
     methods: {
       handleAlertClick: function(event) {
-        const alertToToggle = event.target.value;
+        const alertToToggle = event.currentTarget.value;
         if (alertToToggle === this.openAlert) {
           this.openAlert = "";
         } else {
@@ -89,6 +89,26 @@ const NavBar = Vue.component('nav-bar', {
         this.updatePage(MAIN_PAGE_ID, {});
       },
     },
+    components: {
+      [RENT_PAGE_ID]: {
+        template: `
+          <money-icon
+            :width="26"
+            :height="19"
+            :title="'rent payment alerts'"
+          />
+        `,
+      },
+      [CONTRACT_RENEW_PAGE_ID]: {
+        template: "<span>Contract Renewal</span>",
+      },
+      [CONTRACT_SIGN_PAGE_ID]: {
+        template: "<span>Contract Sign</span>",
+      },
+      [MESSAGEPAGE_ID]: {
+        template: "<span>Messages</span>",
+      },
+    },
     template: `
       <header>
         <button v-on:click="home">
@@ -110,11 +130,13 @@ const NavBar = Vue.component('nav-bar', {
             <alert-icon
               :onClick="handleAlertClick"
               :count="alertMap[alertType].length"
-              :label="alertType"
+              :value="alertType"
               :type="alertType"
               :focused="selectedPage === alertType"
               slot="trigger"
-            />
+            >
+              <component :is="alertType" slot="label" />
+            </alert-icon>
             <div slot="content">
               <alert-menu-item
                 v-for="alert in alertMap[alertType]"
