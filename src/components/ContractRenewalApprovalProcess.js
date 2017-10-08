@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import Accordian from './Accordian';
 import Contract from './Contract';
 
 const ContractRenewalApprovalProcess = Vue.component('contract-renewal-approval-process', {
@@ -22,27 +21,23 @@ const ContractRenewalApprovalProcess = Vue.component('contract-renewal-approval-
     },
   },
   template:`
-    <accordian
-      :totalSlots="2"
-    >
-      <div :slot="1">
-        <h1>
-          Review {{ renterData.name }}'s Contract
-        </h1>
-        <contract :contract="contract" />
+    <div>
+      <h1>
+        Review {{ renterData.name }}'s Contract
+      </h1>
+      <contract :contract="contract" />
+      <div>
+        If everything looks good to, approve the renewal request
+        <div>
+          <button v-on:click="renewContract">
+            Renew Request
+          </button>
+          <button v-on:click="rejectRequest">
+            Reject Request
+          </button>
+        </div>
       </div>
-      <div :slot="2">
-        <h1>
-          If everything looks good to, approve the renewal request
-        </h1>
-        <button v-on:click="rejectRequest">
-          Reject Request
-        </button>
-        <button v-on:click="renewContract">
-          Renew {{ renterData.name }}'s Contract
-        </button>
-      </div>
-    </accordian>
+    </div>
   `
 });
 

@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import Accordian from './Accordian';
 import Contract from './Contract';
 
 const ContractRenewalProcess = Vue.component('contract-renewal-process', {
@@ -15,24 +14,20 @@ const ContractRenewalProcess = Vue.component('contract-renewal-process', {
     }
   },
   template:`
-    <accordian
-      :totalSlots="2"
-    >
-      <div :slot="1">
-        <h1>
-          Review Your Contract
-        </h1>
-        <contract :contract="contract" />
+    <div>
+      <h1>
+        Review Your Contract
+      </h1>
+      <contract :contract="contract" />
+      <div>
+        If everything looks good to go, submit your request
+        <div>
+          <button v-on:click="requestContractRenewal">
+            Renew My Contract
+          </button>
+        </div>
       </div>
-      <div :slot="2">
-        <h1>
-          If everything looks good to go, submit your request
-        </h1>
-        <button v-on:click="requestContractRenewal">
-          Renew My Contract
-        </button>
-      </div>
-    </accordian>
+    </div>
   `
 });
 
